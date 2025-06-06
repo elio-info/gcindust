@@ -1,0 +1,435 @@
+bd lsvgsg2025
+INSERT INTO `ussrs` (`uss`, `psswr`, `nombre_usuario`, `lvl`) VALUES ('qwerty', '12345', 'Sergio', '0'), ('asdfg', '12345', 'recep', '2')
+
+// condicion en SELECT
+SELECT <id campos>, 
+       IF(<campo que pongo en criterio> = <valor>, 
+            <resp en si>, 
+            < resp en no>
+            ) as <nombre que se retorna>
+FROM <tabla que se pregunta>
+Ej> SELECT `id_tipopago`,`nombre_tipopago`,  
+       IF(transferencia_tipopago = 0, 'Efe','Tra') as trans,
+       `transferencia_tipopago`       
+FROM `catalogo_tipopago_table`
+
+vistas
+
+DEFINER VIEW `view_member` AS select `lsvgsg2025`.`catalogo_membresia_table`.`id_membresia` AS `id_membresia`,`lsvgsg2025`.`catalogo_membresia_table`.`nombre_membresia` AS `nombre_membresia`,`lsvgsg2025`.`catalogo_membresia_table`.`descuento` AS `descuento`,`lsvgsg2025`.`catalogo_area_table`.`nombre_area` AS `nombre_area`,`lsvgsg2025`.`catalogo_membresia_table`.`id_area` AS `id_area` from (`lsvgsg2025`.`catalogo_membresia_table` left join `lsvgsg2025`.`catalogo_area_table` on((`lsvgsg2025`.`catalogo_membresia_table`.`id_area` = `lsvgsg2025`.`catalogo_area_table`.`id_area`)))
+
+ALTER ALGORITHM = UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_areaen3hora` AS SELECT `area`.`nombre_area` AS `nombre_area`, `en3`.`nombre_entrenador` AS `nombre_entrenador`, `hora`.`tiempo` AS `tiempo`, `aeh`.`id_area` AS `id_area`, `aeh`.`id_entrenador` AS `id_entrenador`, `aeh`.`id_horario` AS `id_horario` 
+FROM 
+       ( ( ( `lsvgsg2025`.`area_entrenador_horarios` `aeh` 
+              LEFT JOIN `lsvgsg2025`.`catalogo_area_table` `area` ON ((`aeh`.`id_area` = `area`.`id_area`)) ) 
+              LEFT JOIN `lsvgsg2025`.`entrenadores_table` `en3` ON ((`aeh`.`id_entrenador` = `en3`.`id_entrenador`)) )
+              LEFT JOIN `lsvgsg2025`.`catalogo_horarios_table` `hora` ON ( (`aeh`.`id_horario` = `hora`.`id_horario`) ) 
+       )
+
+ALTER ALGORITHM = UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_loco` AS SELECT `area`.`nombre_area` AS `nombre_area`, `en3`.`nombre_entrenador` AS `nombre_entrenador`, `hora`.`tiempo` AS `tiempo`, `aeh`.`id_area` AS `id_area`, `aeh`.`id_entrenador` AS `id_entrenador`, `aeh`.`id_horario` AS `id_horario` 
+FROM 
+       ( ( ( `lsvgsg2025`.`area_entrenador_horarios` `aeh` 
+              LEFT JOIN `lsvgsg2025`.`catalogo_area_table` `area` ON ((`aeh`.`id_area` = `area`.`id_area`)) ) 
+              LEFT JOIN `lsvgsg2025`.`entrenadores_table` `en3` ON ((`aeh`.`id_entrenador` = `en3`.`id_entrenador`)) )
+              LEFT JOIN `lsvgsg2025`.`catalogo_horarios_table` `hora` ON ( (`aeh`.`id_horario` = `hora`.`id_horario`) ) 
+       )
+
+
+
+        $gg="SELECT ml.*,`mdt`.*,COUNT(ml.id_miembro) as cantMiebro FROM `membresia_list` `ml`
+	LEFT JOIN `lsvgsg2025`.`catalogo_area_table` `area` ON ((`ml`.`id_area` = `area`.`id_area`)) 
+    LEFT JOIN `lsvgsg2025`.`entrenadores_table` `en3` ON ((`ml`.`id_entrenador` = `en3`.`id_entrenador`)) 
+    LEFT JOIN `lsvgsg2025`.`catalogo_horarios_table` `hora` ON ( (`ml`.`id_horario` = `hora`.`id_horario`) )
+    LEFT JOIN `lsvgsg2025`.`miembro_data_table` `mdt` ON ((`ml`.`id_area` = `mdt`.`id_miembro`))  
+GROUP BY ml.id_entrenador , ml.id_horario";
+
+disponibilidad en area_entrenador_horarios con las membresias [view_areaen3hora]
+coger aem.todo , unirle lista_de_miembros como secundaria,contar clientes, agrupados por area member en3 horario
+
+CREATE VIEW view_gym_capacity
+AS
+SELECT 
+    v_aeh.id_area,v_aeh.id_membresia,v_aeh.id_entrenador,v_aeh.id_horario,
+    v_aeh.cant_support,
+    ca.capacidad,
+    COUNT(ml.id_miembro) as cant_miembro
+FROM view_areaen3hora v_aeh  
+LEFT JOIN membresia_list ml
+    ON v_aeh.id_area = ml.id_area
+LEFT JOIN catalogo_area_table ca
+    ON v_aeh.id_area = ca.id_area
+GROUP BY 
+    v_aeh.id_area ,v_aeh.id_membresia,v_aeh.id_entrenador,v_aeh.id_horario
+ver sitio 
+https://datatables.net/examples/basic_init/data_rendering.html
+
+
+#vista de oferta para GYM
+select 
+    cmm.*
+    ,aeh.nombre_area
+    ,aeh.id_horario , aeh.tiempo
+    ,CASE 
+        WHEN cmm.cant_support = 0 THEN -1 
+        ELSE aeh.id_entrenador 
+    END as id_entrenador
+    ,CASE 
+        WHEN cmm.cant_support = 0 THEN -1  
+        ELSE aeh.nombre_entrenador 
+    END as nombre_entrenador
+from 
+  `catalogo_membresia_table` `cmm` 
+    left join view_areaen3hora aeh 
+        on cmm.`id_area` = `aeh`.`id_area` #membresias del area 
+order by aeh.tiempo ,cmm.id_membresia ASC
+
+CREATE VIEW view_clientes_gym
+AS
+select 
+    ml.*
+    ,CONCAT (cl.nombre_miembro,cl.apellidos_miembro) as nombre_miembro
+    ,cl.edad,cl.estado_miembro
+    ,cl.cell_miembro    
+from 
+  `membresia_list` `ml` 
+    left join miembro_data_table cl 
+        on ml.`id_miembro` = `cl`.`id_miembro` 
+
+#ver clientes
+SELECT 
+--    , count(*) 
+    *
+FROM 
+-- where
+
+SELECT * from vw_gym_cpcty   
+ where  id_area = 2  
+ and  id_membresia = 6 
+--  and  id_entrenador = '77854235657' 
+   and  id_horario = 5   
+
+#importado
+#probando cosas para capacidad gym
+#oferta_gym
+select 
+    cmm.*
+    ,aeh.nombre_area
+    ,aeh.id_horario , aeh.tiempo
+    ,CASE 
+        WHEN cmm.cant_support = 0 THEN -1 
+        ELSE aeh.id_entrenador 
+    END as id_entrenador
+    ,CASE 
+        WHEN cmm.cant_support = 0 THEN 'No'  
+        ELSE aeh.nombre_entrenador 
+    END as nombre_entrenador
+    , ca.precio
+from 
+  `catalogo_membresia_table` `cmm` 
+    left join view_areaen3hora aeh 
+        on cmm.`id_area` = `aeh`.`id_area` #membresias del area 
+    LEFT JOIN catalogo_area_table ca
+        ON cmm.id_area = ca.id_area
+order by aeh.tiempo ,cmm.id_membresia ASC
+#fin probando cosas para capacdad gym
+
+#probando cosas para tiempo de servicio
+select 
+    `v_aeh`.`id_area` AS `id_area`,
+    `v_aeh`.`id_membresia` AS `id_membresia`,
+    `v_aeh`.`nombre_membresia` AS `nombre_membresia`,
+    `v_aeh`.`id_entrenador` AS `id_entrenador`,
+    `v_aeh`.`nombre_entrenador` AS `nombre_entrenador`,
+    `v_aeh`.`id_horario` AS `id_horario`,
+    `v_aeh`.`tiempo` AS `tiempo`,
+    `v_aeh`.`cant_support` AS `cant_support_en3`,
+    `ca`.`precio` AS `precio`,
+    `ca`.`capacidad` AS `capacidad`
+    -- ,CONCAT_WS('-', `v_aeh`.`id_area`,'m_',`v_aeh`.`id_membresia`,'e_',`v_aeh`.`id_entrenador` ,`v_aeh`.`id_horario`) as `llave`
+    , ml.id_miembro as mm 
+    , count(*) AS `cant_miembro`
+from 
+    ((`lsvgsg2025`.`membresia_list` `ml` 
+    left join `lsvgsg2025`. `view_areaen3hora` `v_aeh`
+        on((`ml`.`id_area` = `v_aeh`.`id_area`))) 
+    left join `lsvgsg2025`.`catalogo_area_table` `ca` 
+        on((`v_aeh`.`id_area` = `ca`.`id_area`))) 
+group by  
+    ml.id_area,ml.id_membresia
+order by `v_aeh`.`tiempo`
+#fin probando cosas para tiempo de servicio
+
+#lista de miembros
+SELECT 
+    ml.*
+FROM membresia_list ml    
+GROUP BY 
+    ml.id_area,ml.id_membresia,ml.id_entrenador,ml.id_horario 
+
+-- todos los dias de servicio diario
+select 
+    `lsvgsg2025`.`servicio_dia`.`fechahora` AS `fechahora`,
+    `lsvgsg2025`.`servicio_dia`.`id_area` AS `id_area`,
+    `lsvgsg2025`.`servicio_dia`.`id_cliente` AS `id_cliente`,
+    `lsvgsg2025`.`servicio_dia`.`nombre_cliente` AS `nombre_cliente`,
+    CASE WHEN `servicio_dia`.id_cliente = miembro_data_table.id_miembro THEN TRUE ELSE FALSE END as `Mmb`,
+    `lsvgsg2025`.`view_tipo_pago`.`tipopago` AS `tipopago`,
+    `lsvgsg2025`.`catalogo_area_table`.`nombre_area` AS `nombre_area`,
+    `lsvgsg2025`.`catalogo_area_table`.`precio` AS `precio` 
+from 
+    ((`lsvgsg2025`.`servicio_dia` 
+        left join `lsvgsg2025`.`view_tipo_pago` 
+            on((`lsvgsg2025`.`servicio_dia`.`id_pago` = `lsvgsg2025`.`view_tipo_pago`.`id_tipopago`)))
+        left join `lsvgsg2025`.`catalogo_area_table` 
+            on((`lsvgsg2025`.`servicio_dia`.`id_area` = `lsvgsg2025`.`catalogo_area_table`.`id_area`)))
+        Left JOIN miembro_data_table  on servicio_dia.id_cliente=miembro_data_table.id_miembro  
+order by `lsvgsg2025`.`servicio_dia`.`fechahora` desc
+
+-- servicio diario de hoy
+select 
+    `lsvgsg2025`.`servicio_dia`.`fechahora` AS `fechahora`,
+    `lsvgsg2025`.`servicio_dia`.`id_area` AS `id_area`,
+    `lsvgsg2025`.`servicio_dia`.`id_cliente` AS `id_cliente`,
+    `lsvgsg2025`.`servicio_dia`.`nombre_cliente` AS `nombre_cliente`,
+    CASE WHEN `servicio_dia`.id_cliente = miembro_data_table.id_miembro THEN TRUE ELSE FALSE END as `Mmb`,
+    `lsvgsg2025`.`view_tipo_pago`.`tipopago` AS `tipopago`,
+    `lsvgsg2025`.`catalogo_area_table`.`nombre_area` AS `nombre_area`,
+    `lsvgsg2025`.`catalogo_area_table`.`precio` AS `precio` 
+from 
+    ((`lsvgsg2025`.`servicio_dia` 
+        left join `lsvgsg2025`.`view_tipo_pago` 
+            on((`lsvgsg2025`.`servicio_dia`.`id_pago` = `lsvgsg2025`.`view_tipo_pago`.`id_tipopago`)))
+        left join `lsvgsg2025`.`catalogo_area_table` 
+            on((`lsvgsg2025`.`servicio_dia`.`id_area` = `lsvgsg2025`.`catalogo_area_table`.`id_area`)))
+        Left JOIN miembro_data_table  on servicio_dia.id_cliente=miembro_data_table.id_miembro  
+where (cast(`lsvgsg2025`.`servicio_dia`.`fechahora` as date) like cast(now() as date)) 
+order by `lsvgsg2025`.`servicio_dia`.`fechahora` desc
+-- fin servicio diario de hoy
+
+-- view gym capacity
+select
+    `v_aeh`.`id_area` AS `id_area`,
+    `v_aeh`.`id_membresia` AS `id_membresia`,
+    `v_aeh`.`nombre_membresia` AS `nombre_membresia`,
+    `v_aeh`.`id_entrenador` AS `id_entrenador`,
+    `v_aeh`.`nombre_entrenador` AS `nombre_entrenador`,
+    `v_aeh`.`id_horario` AS `id_horario`,
+    `v_aeh`.`tiempo` AS `tiempo`,
+    `v_aeh`.`cant_support` AS `cant_support_en3`,
+    `ca`.`precio` AS `precio`,
+    `ca`.`capacidad` AS `capacidad`
+    -- ,count(`ml`.`id_miembro`) AS `cant_miembro`
+from 
+        -- ((
+            `view_areaen3hora` `v_aeh`
+            -- INNER join `membresia_list` `ml` on (
+            --     (
+            --         `v_aeh`.`id_area` = `ml`.`id_area` AND
+            --         v_aeh.id_membresia =ml.id_membresia
+            --     )
+            -- ))
+        
+        left join `catalogo_area_table` `ca` on (
+            (
+                `v_aeh`.`id_area` = `ca`.`id_area`
+            )
+        )
+    -- )
+group by
+    `v_aeh`.`id_area`,
+    `v_aeh`.`id_membresia`,
+    `v_aeh`.`id_entrenador`,
+    `v_aeh`.`id_horario`
+order by `v_aeh`.`tiempo`
+#fin algo
+
+-- CREATE VIEW view_clientes_gym
+-- AS
+select
+    `ml`.`id_area` AS `id_area`,
+    CONCAT_WS('.', vm.nombre_area,vm.nombre_membresia,hr.tiempo )as area,   
+    `ml`.`id_entrenador` AS `id_entrenador`,    
+    `ml`.`id_miembro` AS `id_miembro`,
+    `ml`.`cantidad_meses_pago_descrip` AS `cantidad_meses_pago_descrip`,
+    CONCAT_WS(' ',
+        `cl`.`nombre_miembro`,
+        `cl`.`apellidos_miembro`
+    ) AS `nombre_miembro`,
+    `cl`.`edad` AS `edad`,
+    `cl`.`estado_miembro` AS `estado_miembro`,
+    
+    `cl`.`cell_miembro` AS `cell_miembro`,
+--     comparacion de estado pago
+    CASE 
+	WHEN     	  
+        TIMESTAMPDIFF(DAY,NOW(),fechapago)<-12    
+    THEN
+    'super pasado'
+    WHEN 
+    	 TIMESTAMPDIFF(DAY,NOW(),fechapago)>=-12
+         AND
+         TIMESTAMPDIFF(DAY,NOW(),fechapago)<=-7
+    THEN
+    'corre'
+	WHEN 
+    	 TIMESTAMPDIFF(DAY,NOW(),fechapago)>=-6
+        	AND 
+        TIMESTAMPDIFF(DAY,NOW(),fechapago)<=-2    
+    THEN
+    'aceptable'
+    WHEN 
+    	TIMESTAMPDIFF(DAY,NOW(),fechapago)>-1       	    
+    THEN
+    'en tiempo'
+END as perreta
+, TIMESTAMPDIFF(DAY,NOW(),fechapago) as ll,
+    `ml`.`fechaInscrip` AS `fechaInscrip`,
+    CONCAT(DATE_FORMAT (`ml`.`fechaPago`,'%d-%m-%Y') ,' ',TIMESTAMPDIFF(DAY,NOW(),fechapago),' dias')AS `fechaPago`
+from (
+        `membresia_list` `ml`
+        left join `miembro_data_table` `cl` on (
+            (
+                `ml`.`id_miembro` = `cl`.`id_miembro`
+            )
+        )
+  left join `view_member` `vm` on (
+            (
+                `ml`.`id_area` = `vm`.`id_area` 
+              and 
+               vm.id_membresia = ml.id_membresia
+            )
+        )
+  left join catalogo_horarios_table hr on (
+            (
+                `ml`.id_horario = `hr`.`id_horario`              
+            )
+        )
+    )
+ ORDER BY `id_miembro` asc
+
+ #actualizar estados de los membresiasUPDATE `membresia_list` ml set  id_estadoMembresia =(
+        case
+            when (
+                timestampdiff(DAY, now(), `ml`.`fechaPago`) < - (12)
+            ) then 4
+            when (
+                (
+                    timestampdiff(DAY, now(), `ml`.`fechaPago`) >= - (12)
+                )
+                and (
+                    timestampdiff(DAY, now(), `ml`.`fechaPago`) <= - (7)
+                )
+            ) then 3
+            when (
+                (
+                    timestampdiff(DAY, now(), `ml`.`fechaPago`) >= - (6)
+                )
+                and (
+                    timestampdiff(DAY, now(), `ml`.`fechaPago`) <= - (2)
+                )
+            ) then 2
+            when (
+                timestampdiff(DAY, now(), `ml`.`fechaPago`) > - (1)
+            ) then 1
+        end
+    )
+
+
+#cambios en view_clientes_gym
+select 
+concat_ws(',',id_miembro,id_area,id_horario) AS `llave_mmb`,
+`ml`.`id_area` AS `id_area`,
+`vm`.`nombre_area` AS `nombre_area`,
+`vm`.`nombre_membresia` AS `nombre_membresia`,
+`vm`.`tiempo` AS `tiempo`,
+`ml`.`id_membresia` AS `id_membresia`,
+`ml`.`id_horario` AS `id_horario`,
+`ml`.`id_entrenador` AS `id_entrenador`,
+`vm`.`nombre_entrenador` AS `entrenador`,
+`ml`.`id_miembro` AS `id_miembro`,
+`ml`.`cantidad_meses_pago_descrip` AS `cantidad_meses_pago_descrip`,
+`vm`.`precio` AS `precio`,
+concat_ws(' ',`cl`.`nombre_miembro`,`cl`.`apellidos_miembro`) AS `nombre_miembro`,
+`cl`.`edad` AS `edad`,`ml`.`id_estadoMembresia` AS `id_estado_miembro`,
+`em`.`nombre_estadomiembro` AS `estado`,`cl`.`cell_miembro` AS `cell_miembro`,
+timestampdiff(DAY,current_timestamp(),`ml`.`fechaPago`) AS `ll`,
+`ml`.`fechaInscrip` AS `fechaInscrip`,
+concat(date_format(`ml`.`fechaPago`,'%d-%m-%Y'),' ',timestampdiff(DAY,current_timestamp(),`ml`.`fechaPago`),' dias') AS `fechaPago`
+from `lsvgsg2025`.`membresia_list` `ml` 
+	left join `lsvgsg2025`.`miembro_data_table` `cl` 
+    	on(`ml`.`id_miembro` = `cl`.`id_miembro`) 
+    left join `lsvgsg2025`.`view_oferta_gym` `vm` 
+    	on(
+            `ml`.`id_area` = `vm`.`id_area` and
+            `ml`.`id_membresia` = `vm`.`id_membresia` and
+            ml.id_horario = vm.id_horario
+        )
+    left join `lsvgsg2025`.`catalogo_estadomiembro_table` `em` on(`ml`.`id_estadoMembresia` = `em`.`id_estadomiembro`)
+    
+    order by `ml`.`id_estadoMembresia`,`ml`.`fechaPago` desc
+
+select
+`catalogo_membresia_table`.`id_membresia` AS id_membresia`
+,`catalogo_membresia_table`.`nombre_membresia` AS `nombre_membresia`
+,`catalogo_membresia_table`.servicio_precioCalle AS `servicio_precioCalle`
+,servicio_precioMiembro
+,`catalogo_area_table`.`nombre_area` AS `nombre_area`
+,`catalogo_membresia_table`.`id_area` AS `id_area`
+from (`lsvgsg2025`.`catalogo_membresia_table` left join `lsvgsg2025`.`catalogo_area_table` on(`lsvgsg2025`.`catalogo_membresia_table`.`id_area` = `lsvgsg2025`.`catalogo_area_table`.`id_area`))
+
+cobro de membresia en el dia
+SELECT * ,COUNT(`id_miembro`) FROM `membresia_pagolist`
+WHERE cast(`fecha_pagado` as date )= cast(now() as date)
+GROUP BY id_area,`id_membresia`
+
+
+por el momento  Nolet trGral="";
+        // total gral
+        var dataTotalGral= (await getPayFromTable_ServicioDiario(ruta,fechaInicio.dia,fechaFin.dia)).data;
+        trGral += `<tr>
+                    <th>Ganancia Total</th>
+                        <td>${dataTotalGral[0].cnt===null? '0':dataTotalGral[0].cnt}</td>
+                    </tr>`;
+        // total area
+        var dataTotalAr= (await getPayFromTable_ServicioDiario(ruta,fechaInicio.dia,fechaFin.dia,'id_area')).data;
+        trGral += `<tr>
+                    <th>Areas</th><td>`;
+            dataTotalAr.map((elt)=> 
+                  trGral +=  ` ${elt.nombre_area} :  ${elt.cnt}`);
+        trGral +=  ` </td></tr>`;
+        // total tipos clientes
+        var dataTotalCl= (await getPayFromTable_ServicioDiario(ruta,fechaInicio.dia,fechaFin.dia,'Mmb')).data;
+        trGral += `<tr>
+                    <th>Tipos de Clientes</th>
+                        <td>`
+            dataTotalCl.map((elt)=> 
+                  trGral +=  `&nbsp; ${parseInt(elt.Mmb) ? 'Miembro':'Calle'} :  ${elt.cnt}  &nbsp;`);
+        trGral +=  ` </td>        </tr>`;
+        trGral += `<tr>
+                    <th>Tipos de Pagos</th><td>`
+            dataTotalPagos.map((elt)=> 
+                  trGral +=  ` ${elt.tipopago} :  ${elt.cnt}`);
+        trGral +=`   </td></tr>`;
+        // total area
+        // var dataTotalAr= (await getPayFromTable_ServicioDiario(ruta,inicio,fin,'id_area')).data;
+        // total area y clientes
+        // var dataTotalAr= (await getPayFromTable_ServicioDiario(ruta,inicio,fin,'id_area ,')).data;
+        $('#costo_'+paramsTableName)[0].innerHTML=trGral;
+
+/************************ otrass cosas
+va dentro de un row
+<div class="col-lg-3 mb-4">
+    <div class="card text-white shadow bg-dark">
+        <div class="card-body">
+            <p class="m-0">Secondary</p>
+            <p class="text-white-50 small m-0">#858796</p>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 mb-4">
+    <div class="card text-white shadow bg-dark">
+        <div class="card-body">
+            <p class="m-0">Secondary</p>
+            <p class="text-white-50 small m-0">#858796</p>
+        </div>
+    </div>
+</div>
