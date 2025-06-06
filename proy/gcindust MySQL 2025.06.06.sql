@@ -1,5 +1,55 @@
+-- Active: 1749211371623@@127.0.0.1@3306@gcindust
+CREATE DATABASE gcindust;
+
+ drop table grados_cientificos;
+CREATE TABLE `grados_cientificos` (
+  `id_gradocientifico` integer PRIMARY KEY not NULL AUTO_INCREMENT,
+  `nombre_gradocientifico` varchar(255) not NULL
+);
+drop TABLE departamento_entidad;
+CREATE TABLE `departamento_entidad` (
+  `id_departamento` integer PRIMARY KEY not NULL AUTO_INCREMENT,
+  `nombre_departamento` varchar(255) not NULL
+);
+
+CREATE TABLE `empresa` (
+  `id_empresa` integer PRIMARY KEY not NULL AUTO_INCREMENT,
+  `nombre_empresa` varchar(255) not NULL ,
+  `responsable_empresa` varchar(255),
+  `direccion_empresa` varchar(255),
+  `telefono_empresa` varchar(255),
+  `email_empresa` varchar(255)
+);
+
+
+CREATE TABLE `persona` (
+  `id_persona` integer PRIMARY KEY not NULL AUTO_INCREMENT,
+  `nombre_persona` varchar(255)not NULL,
+  `apellido_persona` varchar(255),
+  `departamento_persona` integer NOT NULL,
+  `plan_de_trabajo_persona` text,
+  `usuario` varchar(255) UNIQUE NOT NULL,
+  `contrasena` varchar(255) NOT NULL,
+  Foreign Key (departamento_persona) REFERENCES departamento_entidad (id_departamento)
+);
+
+
+CREATE TABLE `proyecto` (
+  `id_proyecto` integer PRIMARY KEY not NULL AUTO_INCREMENT,
+  `nombre_proyecto` varchar(255) NOT NULL,
+  `nombre_responsable_proyecto` varchar(255) NOT NULL,
+  `dia_solicitud_proyecto` datetime,  
+  `presupuesto_proyecto` decimal,
+  `tiempo_estimado_proyecto` int,
+  `id_empresa` integer NOT NULL,
+  `estado_proyecto` ENUM ('Propuesto','Denegado','Aceptado'),
+  Foreign Key (id_empresa) REFERENCES empresa (id_empresa)
+);
+
+
+
+-- -------------------------------------------------------------------------- 
 CREATE TABLE `Experto` (
-  `ID_experto` int PRIMARY KEY,
   `id_persona` integer UNIQUE NOT NULL,
   `Cargo` varchar(255),
   `Anios_experiencia` int,
@@ -7,7 +57,7 @@ CREATE TABLE `Experto` (
   `coeficiente_conocimiento` decimal,
   `coeficiente_argumentacion` decimal,
   `indice_experticidad` decimal,
-  `estado_encuesta` null
+  `estado_encuesta` null,
 );
 
 CREATE TABLE `Grupo_Experto` (
@@ -25,19 +75,6 @@ CREATE TABLE `Listado_Grupo_Experto` (
   `ID_experto` integer,
   `estado` bool
 );
-
-CREATE TABLE `Proyecto` (
-  `id_proyecto` integer PRIMARY KEY,
-  `Nombre_del_proyecto` varchar(255),
-  `nombre_responsable` varchar(255),
-  `dia_solicitud` datetime,
-  `cronograma` text,
-  `presupuesto` decimal,
-  `tiempo_estimado` int,
-  `id_empresa` integer NOT NULL,
-  `estado_aprobado` boolean
-);
-
 CREATE TABLE `Aprobaciones_Proyecto` (
   `id_proyecto` integer PRIMARY KEY,
   `aprobado_consejo` boolean,
@@ -49,25 +86,6 @@ CREATE TABLE `Proyecto_Experto` (
   `id_proyecto` integer NOT NULL,
   `id_experto` integer NOT NULL,
   PRIMARY KEY (`id_proyecto`, `id_experto`)
-);
-
-CREATE TABLE `Empresa` (
-  `id_empresa` integer PRIMARY KEY,
-  `nombre` varchar(255),
-  `responsable` varchar(255),
-  `direccion` varchar(255),
-  `telefono` varchar(255),
-  `email` varchar(255)
-);
-
-CREATE TABLE `Persona` (
-  `id` integer PRIMARY KEY,
-  `nombre` varchar(255),
-  `apellido` varchar(255),
-  `departamento` varchar(255),
-  `plan_de_trabajo` text,
-  `usuario` varchar(255) UNIQUE NOT NULL,
-  `contrasena` varchar(255) NOT NULL
 );
 
 CREATE TABLE `Cronograma_Actividad` (
@@ -86,11 +104,6 @@ CREATE TABLE `Cronograma_Actividad_Experto` (
   `id_proyecto` integer NOT NULL,
   `id_experto` integer NOT NULL,
   PRIMARY KEY (`id_cronograma`, `id_proyecto`, `id_experto`)
-);
-
-CREATE TABLE `Grados_Cientificos` (
-  `id` integer PRIMARY KEY,
-  `nombre` varchar(255)
 );
 
 CREATE TABLE `Encuesta_Experto` (

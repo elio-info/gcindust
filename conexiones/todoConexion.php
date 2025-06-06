@@ -1,9 +1,9 @@
 <?php
 class dbconexion{
 
-    private $conn;
+    private $conn=null;
     private $servername = "localhost";
-    private $myDB = "lsvgsg2025";
+    private $myDB = "gcindust";
     private $username = "root";
     private $password = "";//root
     
@@ -17,21 +17,21 @@ class dbconexion{
        
         $er=null;
         $ok=true;
-        //new PDO("mysql:host=localhost;dbname=lsvgsg2025","root","root");  
+        
         try {
-        $conn = new PDO("mysql:host=$this->servername;dbname=$this->myDB", $this->username, $this->password);
+        $this->conn = new PDO("mysql:host=$this->servername;dbname=$this->myDB", $this->username, $this->password);
         // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
        // eConnected successfully";
-        $ok=$conn->exec($query_statement);
+        $ok=$this->conn->exec($query_statement);
         
          } catch(PDOException $e) {
             $er='Error en datos ya existentes.['.$e->getMessage(); 
             $ok=false; 
            // php_console_log($e);          
         }
-        $conn=null;
+        $this->conn=null;
         return  ['status'=>$ok,'error'=>$er,'qr'=>$query_statement];       
     }
     public function findAll_By($query_statement)
@@ -66,13 +66,9 @@ class dbconexion{
      */
     public function find_By($query_statement)
     {       
-        // $servername = "localhost";
-        // $myDB = "lsvgsg2025";
-        // $username = "root";
-        // $password = "";
         $er=null;
         $ok=true;
-        //new PDO("mysql:host=localhost;dbname=lsvgsg2025","root","root");  
+         
         try {
         $conn = new PDO("mysql:host=$this->servername;dbname=$this->myDB", $this->username, $this->password);
         // set the PDO error mode to exception
@@ -93,13 +89,8 @@ class dbconexion{
 
     public function getAll_OrderBy($table_name,$table_sort_key)
     {       
-        // $servername = "localhost";
-        // $myDB = "lsvgsg2025";
-        // $username = "root";
-        // $password = "";
         $er=null;
         $ok=true;
-        //new PDO("mysql:host=localhost;dbname=lsvgsg2025","root","root");  
         try {
         $conn = new PDO("mysql:host=$this->servername;dbname=$this->myDB", $this->username, $this->password);
         // set the PDO error mode to exception
@@ -119,39 +110,3 @@ class dbconexion{
         return  ['status'=>$ok,'info'=>$er,'qr'=>$qry];
     }
 }
-/**
- * Ayuda simple para depurar en la consola
- * 
- * @param  Array, Object, String $data
- * @return String
- */
-    function php_console_log( $data, $comment = NULL ) {    
-        $output='';    
-        if(is_string($comment))
-            $output .= "<script>console.warn( '$comment' );";
-        elseif($comment!=NULL)
-            $comment==NULL;//Si se pasa algo que no sea un string se pone a NULL para que no de problemas
-        if ( is_array( $data ) ) {
-            if($comment==NULL)
-                $output .= "<script>console.warn( 'Array PHP:' );";
-            $output .= "console.log( '[" . implode( ',', $data) . "]' );</script>";
-        } else if ( is_object( $data ) ) {
-            $data    = var_export( $data, TRUE );
-            $data    = explode( "\n", $data );
-            if($comment==NULL)
-                $output .= "<script>console.warn( 'Objeto PHP:' );";
-            foreach( $data as $line ) {
-                if ( trim( $line ) ) {
-                    $line    = addslashes( $line );
-                    $output .= "console.log( '{$line}' );";
-                }
-            }
-            $output.="</script>";
-        } else {
-            if($comment==NULL)
-                $output .= "<script>console.warn( 'Valor de variable PHP:' );";
-            $output .= "console.log( '$data' );</script>";
-        }
-            
-        echo $output;
-    }

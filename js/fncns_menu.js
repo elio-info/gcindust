@@ -33,7 +33,7 @@ let dataFromSearch=[];// data to store from search result
  * @param {*} params 
  */
 function AddInfo(params='') {
-    $('#tipo_operacion')[0].value= params!==''?params: 'guardar';
+    $('#tipo_operacion').val(params!==''?params: 'guardar');
     $('#FormDiv').show();
 
 }
@@ -41,8 +41,10 @@ function AddInfo(params='') {
  * close form of insert or update [ general ]
  * @param {*} params 
  */
-function CloseInfo(params) {
-    window.location.reload()
+function CloseInfo() {
+    $('#FormDiv').hide();
+    mostrarMensaje('mensajesDiv','success','Se hizo');
+    window.location.reload();
 }
 
 
