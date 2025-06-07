@@ -7,8 +7,8 @@
     switch ($tipo_consulta) {
         case 'buscar':
             # code...
-            $gcId = $_POST['gcForm_id'];
-            $qry = "SELECT * from grados_cientificos where id_gradocientifico=$gcId";           
+            $deId = $_POST['deForm_id'];
+            $qry = "SELECT * from departamento_entidad where id_departamento=$deId";           
             // print_r ($qry);
              $rs=$consultaso->findAll_By($qry);
             //  print_r ($rs);
@@ -16,14 +16,14 @@
              echo json_encode( $rs );
         break;
         case 'guardar':
-            $gcN = $_POST['gcForm_nombre'];            
-             $qry="insert into grados_cientificos (nombre_gradocientifico)values('$gcN')";
+            $deN = $_POST['deForm_nombre'];            
+             $qry="insert into departamento_entidad (nombre_departamento)values('$deN')";
             //  print_r ($qry);
              $rs=$consultaso->addP($qry);
             //  print_r ($rs);
             //  exit;
              echo json_encode(
-                $rs['status']==1 ? $consultaso->getAll_OrderBy('grados_cientificos','id_gradocientifico')
+                $rs['status']==1 ? $consultaso->getAll_OrderBy('departamento_entidad','id_departamento')
                 :
                 $rs
              );
@@ -31,34 +31,34 @@
         break;
             
         case 'update'://bajo a la bd
-            $gcId = $_POST['gcForm_id'];
-            $gcN = $_POST['gcForm_nombre'];            
-             $qry="UPDATE grados_cientificos SET nombre_gradocientifico ='$gcN' WHERE id_gradocientifico =$gcId ";
+            $deId = $_POST['deForm_id'];
+            $deN = $_POST['deForm_nombre'];            
+             $qry="UPDATE departamento_entidad SET nombre_departamento ='$deN' WHERE id_departamento =$deId ";
             //  print_r ($qry);
              $rs=$consultaso->addP($qry);
             //  print_r ($rs);
             //  exit;
              echo json_encode(
-                $rs['status']==1 ? $consultaso->getAll_OrderBy('grados_cientificos','id_gradocientifico')
+                $rs['status']==1 ? $consultaso->getAll_OrderBy('departamento_entidad','id_departamento')
                 :
                 $rs
              );
         break;    
         case 'eliminar':
             $id = $_POST['id'];
-            $qry="DELETE FROM grados_cientificos WHERE id_gradocientifico = $id";
+            $qry="DELETE FROM departamento_entidad WHERE id_departamento = $id";
             $rs=$consultaso->addP($qry);
             //  print_r ($rs);
             //  exit;
              echo json_encode(
-                $rs['status']==1 ? $consultaso->getAll_OrderBy('grados_cientificos','id_gradocientifico')
+                $rs['status']==1 ? $consultaso->getAll_OrderBy('departamento_entidad','id_departamento')
                 :
                 $rs
              );            
         break;    
         case 'listar':
             # code...listar todos
-            echo json_encode(  $consultaso->getAll_OrderBy('grados_cientificos','id_gradocientifico')      );
+            echo json_encode(  $consultaso->getAll_OrderBy('departamento_entidad','id_departamento')      );
         break;
     }
     // echo json_encode($consultaso);

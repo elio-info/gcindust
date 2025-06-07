@@ -14,14 +14,14 @@
                                                 Agregar Grado Cientifico
                                             </div>
                                             <div class="card-body">
-                                                <form id="gcForm" name="gcForm"method="POST" autocomplete="off">
+                                                <form id="deForm" name="deForm"method="POST" autocomplete="off">
                                                     <input type="hidden" name="tipo_operacion" value="guardar">
-                                                    <input type="hidden" name="gcForm_id" >
+                                                    <input type="hidden" name="deForm_id" >
                                                     
                                                     <div class="name-details">
                                                         <div class="field input">
-                                                            <label>Nombre del Grado Cientifico</label>
-                                                            <input type="text" name="gcForm_nombre" placeholder="Nombre" required>
+                                                            <label>Nombre del Departamento</label>
+                                                            <input type="text" name="deForm_nombre" placeholder="Nombre" required>
                                                         </div>          
                                                     </div>        
                                                     <div class="field button">
@@ -36,7 +36,7 @@
                         </div>
 
                     </div>
-                    <div id="listGC" class="row py-2">
+                    <div id="listde" class="row py-2">
                             <div class="d-flex flex-column" id="content-wrapper">
                                 <div id="content">
                                     <div class="container-fluid">
@@ -64,7 +64,7 @@
                                                     </div>                                        
                                                 </div>                            
                                             </div>                                    
-                                        </div>    <!-- fin tabla de gc -->
+                                        </div>    <!-- fin tabla de de -->
                                     </div>
                                 </div>
                                 </div>
@@ -75,19 +75,15 @@
     </div>
     
  <!-- fin ya el div.wrapper esta finalizado-->
-        </div>
-         </div>  
-    </div>
-  
- 
+</div>
   <script src="../js/jquery-3.7.1.js"></script>  
   <script src="../js/bs-init.js"></script>
   <script src="../js/fncns_menu.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="./fncns_grados100tfk.js"></script>
+  <script src="./fncns_dptoentidad.js"></script>
 
   <script>
-        fillTable_G100('tableCardHead') //llenar datos  GCList               
+        fillTable_Departamento('tableCardHead') //llenar datos  deList               
 
     </script>
 </body>
