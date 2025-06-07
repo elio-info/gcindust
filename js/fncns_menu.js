@@ -1,30 +1,21 @@
-const titulosSite={
-    'recep':[
-        { 'titulo':'Listado de atrasados'  },
-        { 'titulo':'Agregar Miembro'  },
-        { 'titulo':'Cobrar a miembros'  },
-        { 'titulo':'Pagar Servicio del día'  }
+const titulosSite=[
+    {
+        'cargo':'recep',
+        'lnk':[
+        { 'titulo':'Listado de atrasados' ,lnk:'grpgstn_dptoentidad_ctlg.php'  },
+        { 'titulo':'Agregar Miembro' ,lnk:'grpgstn_dptoentidad_ctlg.php'  },      
         ],
-    'gerent':[
-        { 'titulo':'Informaci&oacute;n de los Entrenadores'  },
-        { 'titulo':'Pagado en Servicio Diario'  },
-        { 'titulo':'Pago Miembros del d&iacute;a'  },
-        { 'titulo':'Listado de Miembros'  },
-        { 'titulo':'Cuadre diario'  },
-        { 'titulo':'Gestionar Horarios GYM'  },
-        { 'titulo':'Gestionar Tipos de Pago'  },
-        { 'titulo':'Gestionar las &Aacute;reas'  },        
-        { 'titulo':'Gestionar Tipos de  Membres&iacute;as'  },
-        { 'titulo':'Estados Cliente Membres&iacute;a'  },
-        { 'titulo':'Gestionar Entrenadores'  },
-        { 'titulo':'Relacionar &Aacute;rea<->Entrenadores<->Horarios'  },
-        ]
-}
+    },
+    {
+        'cargo':'admn',
+        'lnk':[
+        { 'titulo':'Gestionar Dpto Entidad',lnk:'grpgstn_dptoentidad_ctlg.php'  },
+        { 'titulo':'Gestionar Empresa',lnk:'grpgstn_empresa_ctlg.php'  },
+        { 'titulo':'Gestionar Grados Cientificos',lnk:'grpgstn_grados100tfk_ctlg.php'  },
 
-const cargoUsuario=['Loko','Gerente','Recepci&oacute;n' ,
-    '...'];
-const estadoMiembro=['Bien','Regular','Mal',
-    'Suspendido'];
+       
+        ]
+}]
 
 let dataFromSearch=[];// data to store from search result 
 
@@ -85,56 +76,19 @@ function setMenu(paramLevels,paramOption,cargo=2,nombreUsuario='') {
     function setActive(lvl,opt) {
        return paramLevels==lvl & paramOption==opt? 'text-bg-danger active':''; 
     }
-    var menuLeft = ' <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">'+
+    var menuTop = ' <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">'+
                 // '<div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>'+
                 '<img src="../assets/img/gymLVlogo.jpg" alt=""/>'+
-                '<div class="sidebar-brand-text mx-3"><span>'+cargoUsuario[cargo]+'</span></div></a>'+
+                '<div class="sidebar-brand-text mx-3"><span>'+paramLevels+'</span></div></a>'+
                 
                 '<hr class="sidebar-divider my-0">'+
                 '<ul class="navbar-nav text-light" id="accordionSidebarRecep">'+
                     '<samp> Recepcionista </samp>'
                     // close first part of NAV
     // first nav [ RECEPCIONISTA] son 4 opc [ 1 - 4 ]
-    var location_to = paramLevels=='recep'?'':'../recep/'
-            
-                  menuLeft +=
-                    '<li class="nav-item"><a class="nav-link '+ setActive('recep' , 1)+'" href="'+location_to+'clientes_Estado2.php"><i class="fas fa-tachometer-alt"></i><span>Atrasados</span></a></li>'+
-                    '<li class="nav-item"><a class="nav-link '+setActive('recep' ,2)+'" href="'+location_to+'persn_matriculamiembro.php"><i class="fas fa-user"></i><span>Matricular</span></a></li>'+
-                    '<li class="nav-item"><a class="nav-link '+setActive('recep' ,3)+'" href="'+location_to+'clientes_Estado.php"><i class="fas fa-table"></i><span>Cobrar</span></a></li>'+
-                    '<li class="nav-item"><a class="nav-link '+setActive('recep' ,4)+'" href="'+location_to+'persn_cobrarservicio.php"><i class="far fa-money-bill-alt"></i><span>Servicio del día</span></a></li>'+
-                    // '<li class="nav-item"><a class="nav-link" href="../user/logout.php"><i class="far fa-user-circle"></i><span>Salir</span></a></li>'+
-                    '</ul>'+
-                    '<hr class="sidebar-divider my-0">'
-                    // close first nav [ RECEPCIONISTA]
-    // second nav [ GERENTE] son 5 opc [ 1 - 5 ]
-    if ( cargo < 2 ){
-        menuLeft +='<ul class="navbar-nav text-light" id="accordionSidebarGerente">'+
-					'<samp> Gerencia </samp>'
-        location_to= paramLevels=='gerent'?'':'../gerent/'
-        menuLeft +=  
-                    '<li class="nav-item"><a class="nav-link  '+setActive('gerent' ,1)+'" href="'+location_to+'gerente_EntrenadoresLista.php"><i class="fas fa-tachometer-alt"></i><span>Entrenadores</span></a></li>'+
-                    '<li class="nav-item"><a class="nav-link '+setActive('gerent' ,2)+'" href="'+location_to+'gerente_PagoServDiario.php"><i class="fas fa-user"></i><span>Pagado Servicio diario</span></a></li>'+
-                    '<li class="nav-item"><a class="nav-link '+setActive('gerent' ,3)+'" href="'+location_to+'gerente_PagoMembrDiario.php"><i class="fas fa-table"></i><span>Cobrado Miembros HOY</span></a></li>'+
-                    '<li class="nav-item"><a class="nav-link '+setActive('gerent' ,4)+'" href="'+location_to+'gerente_clientes_Estados.php"><i class="far fa-money-bill-alt"></i><span>Listado Miembros</span></a></li>'+
-                   '<li  class="nav-item"><a class="nav-link '+setActive('gerent' ,5)+'" href="'+location_to+'gerente_CuadrePagoDiario.php"><i class="far fa-user-circle"></i><span>Cuadre diario</span></a></li>'+
-                    '</ul>'
-
-        // second nav [ Catalgos] son 5 opc [ 6 - ... ]
-        menuLeft +='<ul class="navbar-nav text-light" id="accordionSidebarGerenteCatalogos">'+
-					'<samp> Catalogo Gerencia </samp>'
-        ctgl=5;
-        location_to= paramLevels=='gerent'?'':'../gerent/'
-                 menuLeft +=
-                    '<li class="nav-item"><a class="nav-link '+setActive('gerent' ,ctgl+1)+'" href="'+location_to+'gerente_catalogo_horario.php"><i class="fas fa-tachometer-alt"></i><span>Clasif. Horarios</span></a></li>'+
-                    '<li class="nav-item"><a class="nav-link '+setActive('gerent' ,ctgl+2)+'" href="'+location_to+'gerente_catalogo_tipopago.php"><i class="fas fa-user"></i><span>Clasif. Tipos de Pago</span></a></li>'+
-                    '<li class="nav-item"><a class="nav-link '+setActive('gerent' ,ctgl+3)+'" href="'+location_to+'gerente_catalogo_area.php"><i class="fas fa-table"></i><span>Clasif. de &Aacute;reas</span></a></li>'+
-                    '<li class="nav-item"><a class="nav-link '+setActive('gerent' ,ctgl+4)+'" href="'+location_to+'gerente_catalogo_member.php"><i class="far fa-money-bill-alt"></i><span>Catalogo de Membres&iacute;a</span></a></li>'+
-                   '<li class="nav-item"><a class="nav-link '+setActive('gerent' ,ctgl+5)+'" href="'+location_to+'gerente_catalogo_clientesesta2.php"><i class="far fa-heart"></i><span>Catalogo Estado de Clientes de Membres&iacute;a</span></a></li>'+
-                   '<li  class="nav-item"><a class="nav-link '+setActive('gerent' ,ctgl+6)+'" href="'+location_to+'gerente_entrenadores.php"><i class="far fa-grin-beam-sweat"></i><span>Control de Entrenadores</span></a></li>'+
-                   '<li class="nav-item"><a class="nav-link '+setActive('gerent' ,ctgl+7)+'" href="'+location_to+'gerente_catalogo_area_en3_horario.php"><i class="fas fa-battery-full"></i><span> Area - Ent.- Horarios</span></a></li>'+
-                '</ul>'
-    } //gerencia solo
-    document.getElementById('leftMenu').innerHTML=menuLeft
+    var location_to = paramLevels=='recep'?'':'../recep/';
+  
+   
     
 }
 
@@ -147,21 +101,42 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
                               `
                 // Titulo a poner
                             +
-                            titulosSite[paramCharge][paramTitle-1].titulo                             
-                            +
+                            // titulosSite[paramCharge][paramTitle-1].titulo                             
+                            // +
                 // Fin Titulo a poner
                             `</h1>
                             </div>
         
                         <ul class="navbar-nav flex-nowrap ms-auto">           
                         <li class="nav-item mx-2">
-                                `+
-                // Fecha a poner
-                            `<div class="nav-item dropdown no-arrow bg-danger">               
-                                <a class=" nav-link" aria-expanded="false">                       
-                                    <h3  id="fechaTitulo" ></h3>
-                                </a>                    
+                                `;
+             let tt=``;                    
+            titulosSite.map( (val) =>{
+               
+                tt+=` <li class="nav-item dropdown arrow">
+                                <div class="nav-item dropdown arrow">
+                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                    <h5 class="d-lg-inline me-2  ">
+                                    ${val.cargo} 
+                                    </h5>                                    
+                                    </a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">`; //hast aqui la cabeza del menu desplegable
+                                   let listaVin=``;
+                                   
+                                    val.lnk.map((item) =>{
+                                        listaVin+=` <a class="dropdown-item" href="${item.lnk}">
+                                    <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>${item.titulo}</a>                                    
+                                    `
+                                    })
+                                tt+= listaVin +`
                                 </div>
+                            </li>`
+            });
+               menutitulo                 +=tt+ 
+                // Fecha a poner
+                            ` <a class=" nav-link" aria-expanded="false">                       
+                                    <h3  id="fechaTitulo" ></h3>
+                                </a>  
                                 `+
                 // Fin Fecha a poner
                             `<div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>

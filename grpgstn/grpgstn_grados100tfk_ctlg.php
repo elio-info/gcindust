@@ -75,20 +75,20 @@
     </div>
     
  <!-- fin ya el div.wrapper esta finalizado-->
-        </div>
-         </div>  
+       
     </div>
-  
+ </div>  
  
   <script src="../js/jquery-3.7.1.js"></script>  
   <script src="../js/bs-init.js"></script>
   <script src="../js/fncns_menu.js"></script>
+  <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
   <script src="./fncns_grados100tfk.js"></script>
 
   <script>
-        fillTable_G100('tableCardHead') //llenar datos  GCList               
-
+    setMenu('admn',3)
+    fillTable_G100('tableCardHead') //llenar datos  GCList      
     </script>
 </body>
 

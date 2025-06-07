@@ -11,20 +11,42 @@
                                         <div id="mensajesDiv" class="error-text"></div>
                                         
                                             <div class="card-header py-2" id="cabezaScc">
-                                                Agregar Grado Cientifico
+                                                Agregar Empresa
                                             </div>
                                             <div class="card-body">
-                                                <form id="deForm" name="deForm"method="POST" autocomplete="off">
+                                                <form id="empForm" name="empForm"method="POST" autocomplete="off">
                                                     <input type="hidden" name="tipo_operacion" value="guardar">
-                                                    <input type="hidden" name="deForm_id" >
-                                                    
+                                                    <input type="hidden" name="empForm_id" >
                                                     <div class="name-details">
                                                         <div class="field input">
-                                                            <label>Nombre del Departamento</label>
-                                                            <input type="text" name="deForm_nombre" placeholder="Nombre" required>
+                                                            <label>Nombre de la Empresa</label>
+                                                            <input type="text" name="empForm_nombre" placeholder="Nombre" required>
+                                                        </div>          
+                                                    </div> 
+                                                    <div class="resp-details">
+                                                        <div class="field input">
+                                                            <label>Nombre del Responsable</label>
+                                                            <input type="text" name="empForm_responsable " placeholder="Nombre" required>
                                                         </div>          
                                                     </div>        
-                                                    <div class="field button">
+                                                    <div class="dcc-details">
+                                                        <div class="field input">
+                                                            <label>Dcc Empresa</label>
+                                                            <input type="text" name="empForm_dcc" placeholder="Dcc" >
+                                                        </div>          
+                                                    </div> 
+                                                    <div class="cell-details">
+                                                        <div class="field input">
+                                                            <label>Telefono del Responsable</label>
+                                                            <input type="text" name="empForm_cell" placeholder="Numero" >
+                                                        </div>          
+                                                    </div>        
+                                                     <div class="correo-details">
+                                                        <div class="field input">
+                                                            <label>Correo del Responsable</label>
+                                                            <input type="email" name="empForm_email" placeholder="Correo" >
+                                                        </div>          
+                                                    </div><div class="field button">
                                                         <input id="submit" type="submit" name="submit" value="Agregar">
                                                     </div>
                                                 </form>
@@ -47,7 +69,7 @@
                                                 <div class="card-header py-3">
                                                     <div class="row justify-content-between">
                                                         <div class="col col-5" >
-                                                                <p class=" text-primary m-0 fw-bold">Listado de Departamentos de la Entidad</p>                                               
+                                                                <p class=" text-primary m-0 fw-bold">Listado de Empresas</p>                                               
                                                         </div>
                                                         <div class="col col-3">
                                                             <button type="button" class="btn btn-dark" onclick="AddInfo();">Adicionar</button>     
@@ -81,11 +103,10 @@
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="./fncns_dptoentidad.js"></script>
-
+  <script src="../grpgstn/fncns_empresa.js"></script>
   <script>
-    setMenu('admn',1);
-    fillTable_Departamento('tableCardHead') //llenar datos  deList               
+        setMenu('admn',2);
+        fillTable_Empresa('tableCardHead') //llenar datos  deList               
     </script>
 </body>
 

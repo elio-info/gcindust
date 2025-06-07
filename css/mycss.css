@@ -1,18 +1,4 @@
-body{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: #fc7d1c;
-  padding: 0 10px;
-}
-.wrapper{
-  background: #fff;  
-  width: 90%;
-  border-radius: 16px;
-  box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
-              0 32px 64px -48px rgba(0,0,0,0.5);
-}
+
 /* Show red borders when filled, but invalid */
 input:not(:placeholder-shown) {
     border-color: hsl(0, 76%, 50%);;
