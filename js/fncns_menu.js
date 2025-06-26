@@ -1,17 +1,33 @@
 const titulosSite=[
     {
-        'cargo':'recep',
+        'cargo':'exprt',
+        'ruta':'xprts',
         'lnk':[
-        { 'titulo':'Listado de atrasados' ,lnk:'grpgstn_dptoentidad_ctlg.php'  },
-        { 'titulo':'Agregar Miembro' ,lnk:'grpgstn_dptoentidad_ctlg.php'  },      
+        { 'titulo':'Listado de Cuestionarios' ,lnk:'xprt_qstn.php'  },
+        { 'titulo':'Listado de Tormentas Ideas-Proyectos' ,lnk:'grpgstn_gstn_proyct_wideastrm_ctlg.php'  },
+        { 'titulo':'Listado de Parametros Calidad-Proyectos' ,lnk:'xprt_qstn_wideas.php'  },
+      
         ],
     },
     {
         'cargo':'admn',
+        'ruta':'grpgstn',
         'lnk':[
+        { 'titulo':'Gestionar Proyectos',lnk:'grpgstn_proyct_ctlg.php'  },
         { 'titulo':'Gestionar Dpto Entidad',lnk:'grpgstn_dptoentidad_ctlg.php'  },
         { 'titulo':'Gestionar Empresa',lnk:'grpgstn_empresa_ctlg.php'  },
         { 'titulo':'Gestionar Grados Cientificos',lnk:'grpgstn_grados100tfk_ctlg.php'  },
+        { 'titulo':'Gestionar Personas ',lnk:'grpgstn_persona_ctlg.php'  },
+      
+        ],
+    },
+    {
+        'cargo':'super',
+        'ruta':'grpgstn',
+        'lnk':[    
+        { 'titulo':'Controlar Expertos-Proyectos',lnk:'grpgstn_proyct_xp_ctlg.php'  },
+        { 'titulo':'Gestionar Tormentas-Proyectos',lnk:'grpgstn_proyct_wideastrm_ctlg.php'  },
+        { 'titulo':'Gestionar Listad Chequeo-Proyectos',lnk:'grpgstn_proyct_chcklst_ctlg.php'  },
 
        
         ]
@@ -96,15 +112,17 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
     var menutitulo=`    
                 <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
                         <div class="container-fluid">
-                            <div id="" class="d-none d-sm-inline">  
+                            <div id="titl" class=" d-sm-inline">  
                             <h1>          
                               `
                 // Titulo a poner
-                            +
-                            // titulosSite[paramCharge][paramTitle-1].titulo                             
-                            // +
+                           // +
+                        let poner =null;
+                        titulosSite.map((val)=> {if(val.cargo==paramCharge) poner= val;})
+                        menutitulo +=   poner.lnk[paramTitle-1].titulo                            
+                        
                 // Fin Titulo a poner
-                            `</h1>
+                         menutitulo     +=    `</h1>
                             </div>
         
                         <ul class="navbar-nav flex-nowrap ms-auto">           
@@ -124,7 +142,7 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
                                    let listaVin=``;
                                    
                                     val.lnk.map((item) =>{
-                                        listaVin+=` <a class="dropdown-item" href="${item.lnk}">
+                                        listaVin+=` <a class="dropdown-item" href="${'../' + val.ruta+ '/' +item.lnk}">
                                     <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>${item.titulo}</a>                                    
                                     `
                                     })

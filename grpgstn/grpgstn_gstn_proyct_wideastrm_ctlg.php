@@ -1,27 +1,60 @@
 <?php include_once "../conexiones/header.php"; ?>
 <!-- llena ya el div.wrapper esta iniciado-->
+ 1' mostrar mis xprt, mostrar la lista de la ideas y decidir a quienes la hago la encuesta. Paro.
+  <img src="../proy/w tormenta ideas.jpg" alt="" srcset="">
+2' muestro lista con avance de proceso y acciones a realizar [aceptado,denegado]
+ <img src="../proy/encuesta w tormenta ideas.jpg" alt="" srcset="">
+ 3' cerrada la lista
     <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <div class="container-fluid">
-                     <div class="row py-2">
+                <!-- adicionar proyecto -->
+                    <div class="row py-2">
                         <div class="col col-lg-10 ">                          
                             <div class="row">
                                 <div class="col-10">
                                     <div id="FormDiv" class="card shadow mb-5" style="display: none;">
                                         <div id="mensajesDiv" class="error-text"></div>
-                                        
                                             <div class="card-header py-2" id="cabezaScc">
-                                                Agregar Grado Cientifico
+                                                Agregar Proyecto a Controlar
                                             </div>
                                             <div class="card-body">
-                                                <form id="gcForm" name="gcForm"method="POST" autocomplete="off">
+                                                <form id="pryForm" name="pryForm"method="POST" autocomplete="off">
                                                     <input type="hidden" name="tipo_operacion" value="guardar">
-                                                    <input type="hidden" name="gcForm_id" >
-                                                    
+                                                    <input type="hidden" name="pryForm_id" >
                                                     <div class="name-details">
                                                         <div class="field input">
-                                                            <label>Nombre del Grado Cientifico</label>
-                                                            <input type="text" name="gcForm_nombre" placeholder="Nombre" required>
+                                                            <label>Nombre del Proyecto</label>
+                                                            <input type="text" name="pryForm_nombre" placeholder="Nombre" required>
+                                                        </div>          
+                                                    </div> 
+                                                    <div class="name-details">
+                                                        <div class="field input">
+                                                            <label>Nombre del Responsable - Proyecto</label>
+                                                            <input type="text" name="pryForm_resp" placeholder="Nombre del Responsable" required>
+                                                        </div>    
+                                                        <div class="field select">
+                                                            <label>Empresa del Responsable - Proyecto</label>
+                                                            <select name="pryForm_emp" id="pryForm_emp" required>
+                                                            </select>                                                            
+                                                        </div>      
+                                                    </div>        
+                                                    <div class="date-details">
+                                                        <div class="field date">
+                                                            <label for="pryForm_fchsolc">Fecha de Solicitud - Proyecto</label>
+                                                            <input type="date" name="pryForm_fchsolc" >
+                                                        </div>          
+                                                    </div>        
+                                                    <div class="number-details">
+                                                        <div class="field number">
+                                                            <label>Presupuesto - Proyecto</label>
+                                                            <input type="number" name="pryForm_dinero" >
+                                                        </div>          
+                                                    </div>        
+                                                    <div class="number-details">
+                                                        <div class="field number">
+                                                            <label>Tiempo de ejecucion - Proyecto</label>
+                                                            <input type="number" name="pryForm_tiempo" >
                                                         </div>          
                                                     </div>        
                                                     <div class="field button">
@@ -36,7 +69,8 @@
                         </div>
 
                     </div>
-                    <div id="listGC" class="row py-2">
+                    <!-- listado de proyectos -->
+                    <div id="listde" class="row py-2">
                             <div class="d-flex flex-column" id="content-wrapper">
                                 <div id="content">
                                     <div class="container-fluid">
@@ -47,7 +81,7 @@
                                                 <div class="card-header py-3">
                                                     <div class="row justify-content-between">
                                                         <div class="col col-5" >
-                                                                <p class=" text-primary m-0 fw-bold">Listado de Grados Cientificos</p>                                               
+                                                                <p class=" text-primary m-0 fw-bold">Listado de Proyectos</p>                                               
                                                         </div>
                                                         <div class="col col-3">
                                                             <button type="button" class="btn btn-dark" onclick="AddInfo();">Adicionar</button>     
@@ -64,7 +98,7 @@
                                                     </div>                                        
                                                 </div>                            
                                             </div>                                    
-                                        </div>    <!-- fin tabla de gc -->
+                                        </div>    <!-- fin tabla de de -->
                                     </div>
                                 </div>
                                 </div>
@@ -72,23 +106,21 @@
                         </div>
                 </div>
             </div>
-    
+    </div>
     
  <!-- fin ya el div.wrapper esta finalizado-->
-       </div>
-    </div>
- </div>  
- 
+</div>
   <script src="../js/jquery-3.7.1.js"></script>  
   <script src="../js/bs-init.js"></script>
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="./fncns_grados100tfk.js"></script>
-
+  <script src="./fncns_empresa.js"></script>  
+  <script src="./fncns_proyct.js"></script>
   <script>
-    setMenu('admn',3)
-    fillTable_G100('tableCardHead') //llenar datos  GCList      
+    setMenu('admn',1);
+    fillSelec_Empresa('pryForm_emp');
+    fillTable_Proyecto('tableCardHead') //llenar datos  deList               
     </script>
 </body>
 

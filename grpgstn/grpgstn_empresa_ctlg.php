@@ -14,7 +14,7 @@
                                                 Agregar Empresa
                                             </div>
                                             <div class="card-body">
-                                                <form id="empForm" name="empForm"method="POST" autocomplete="off">
+                                                <form id="empForm" name="empForm" method="POST" autocomplete="off">
                                                     <input type="hidden" name="tipo_operacion" value="guardar">
                                                     <input type="hidden" name="empForm_id" >
                                                     <div class="name-details">
@@ -26,7 +26,7 @@
                                                     <div class="resp-details">
                                                         <div class="field input">
                                                             <label>Nombre del Responsable</label>
-                                                            <input type="text" name="empForm_responsable " placeholder="Nombre" required>
+                                                            <input type="text" name="empForm_responsable" placeholder="Nombre" required>
                                                         </div>          
                                                     </div>        
                                                     <div class="dcc-details">
@@ -46,8 +46,9 @@
                                                             <label>Correo del Responsable</label>
                                                             <input type="email" name="empForm_email" placeholder="Correo" >
                                                         </div>          
-                                                    </div><div class="field button">
-                                                        <input id="submit" type="submit" name="submit" value="Agregar">
+                                                    </div>
+                                                    <div class="field button">
+                                                        <input id="submitBtn" type="submit" name="submitBtn" value="Agregar">
                                                     </div>
                                                 </form>
                                             </div>                                                
@@ -105,7 +106,7 @@
   <script src="../js/my_dataTables.js"></script>
   <script src="../grpgstn/fncns_empresa.js"></script>
   <script>
-        setMenu('admn',2);
+        setMenu('admn',3);
         fillTable_Empresa('tableCardHead') //llenar datos  deList               
     </script>
 </body>

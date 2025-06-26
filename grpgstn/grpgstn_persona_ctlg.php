@@ -11,21 +11,44 @@
                                         <div id="mensajesDiv" class="error-text"></div>
                                         
                                             <div class="card-header py-2" id="cabezaScc">
-                                                Agregar Grado Cientifico
+                                                Agregar Persona
                                             </div>
                                             <div class="card-body">
-                                                <form id="gcForm" name="gcForm"method="POST" autocomplete="off">
+                                                <form id="persnForm" name="persnForm" method="POST" autocomplete="off">
                                                     <input type="hidden" name="tipo_operacion" value="guardar">
-                                                    <input type="hidden" name="gcForm_id" >
-                                                    
+                                                    <input type="hidden" name="persnForm_idtt" >
                                                     <div class="name-details">
                                                         <div class="field input">
-                                                            <label>Nombre del Grado Cientifico</label>
-                                                            <input type="text" name="gcForm_nombre" placeholder="Nombre" required>
+                                                            <label>Carnet de Identidad de la Persona</label>
+                                                            <input type="text" name="persnForm_id" placeholder="Nombre" required>
+                                                        </div>          
+                                                    </div> 
+                                                    <div class="resp-details">
+                                                        <div class="field input">
+                                                            <label>Nombre de la Persona</label>
+                                                            <input type="text" name="persnForm_nombre" placeholder="Nombre" required>
                                                         </div>          
                                                     </div>        
+                                                    <div class="dcc-details">
+                                                        <div class="field input">
+                                                            <label>Usuario en Sistema</label>
+                                                            <input type="text" name="persnForm_uss" placeholder="Usuario" required>
+                                                        </div>          
+                                                    </div> 
+                                                    <div class="cell-details">
+                                                        <div class="field input">
+                                                            <label>Clave de Acceso</label>
+                                                            <input type="text" name="persnForm_psw" placeholder="######" >
+                                                        </div>          
+                                                    </div>        
+                                                     <div class="correo-details">
+                                                        <div class="field input">
+                                                            <label>Categorias de Experticia</label>
+                                                            <input type="email" name="persnForm_catg" placeholder="Calidad Embutidos,Procesos Industriales..." >
+                                                        </div>          
+                                                    </div>
                                                     <div class="field button">
-                                                        <input id="submit" type="submit" name="submit" value="Agregar">
+                                                        <input id="submitBtn" type="submit" name="submitBtn" value="Agregar">
                                                     </div>
                                                 </form>
                                             </div>                                                
@@ -36,7 +59,7 @@
                         </div>
 
                     </div>
-                    <div id="listGC" class="row py-2">
+                    <div id="listde" class="row py-2">
                             <div class="d-flex flex-column" id="content-wrapper">
                                 <div id="content">
                                     <div class="container-fluid">
@@ -47,7 +70,7 @@
                                                 <div class="card-header py-3">
                                                     <div class="row justify-content-between">
                                                         <div class="col col-5" >
-                                                                <p class=" text-primary m-0 fw-bold">Listado de Grados Cientificos</p>                                               
+                                                                <p class=" text-primary m-0 fw-bold">Listado de Empresas</p>                                               
                                                         </div>
                                                         <div class="col col-3">
                                                             <button type="button" class="btn btn-dark" onclick="AddInfo();">Adicionar</button>     
@@ -64,7 +87,7 @@
                                                     </div>                                        
                                                 </div>                            
                                             </div>                                    
-                                        </div>    <!-- fin tabla de gc -->
+                                        </div>    <!-- fin tabla de de -->
                                     </div>
                                 </div>
                                 </div>
@@ -72,23 +95,19 @@
                         </div>
                 </div>
             </div>
-    
+    </div>
     
  <!-- fin ya el div.wrapper esta finalizado-->
-       </div>
-    </div>
- </div>  
- 
+</div>
   <script src="../js/jquery-3.7.1.js"></script>  
   <script src="../js/bs-init.js"></script>
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="./fncns_grados100tfk.js"></script>
-
+  <script src="../grpgstn/fncns_empresa.js"></script>
   <script>
-    setMenu('admn',3)
-    fillTable_G100('tableCardHead') //llenar datos  GCList      
+        setMenu('admn',3);
+        fillTable_Empresa('tableCardHead') //llenar datos  deList               
     </script>
 </body>
 

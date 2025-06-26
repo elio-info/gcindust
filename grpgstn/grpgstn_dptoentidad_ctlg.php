@@ -84,7 +84,7 @@
   <script src="./fncns_dptoentidad.js"></script>
 
   <script>
-    setMenu('admn',1);
+    setMenu('admn',2);
     fillTable_Departamento('tableCardHead') //llenar datos  deList               
     </script>
 </body>
