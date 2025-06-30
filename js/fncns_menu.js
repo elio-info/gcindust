@@ -4,7 +4,7 @@ const titulosSite=[
         'ruta':'xprts',
         'lnk':[
         { 'titulo':'Listado de Cuestionarios' ,lnk:'xprt_qstn.php'  },
-        { 'titulo':'Listado de Tormentas Ideas-Proyectos' ,lnk:'grpgstn_gstn_proyct_wideastrm_ctlg.php'  },
+        { 'titulo':'Listado de Tormentas Ideas-Proyectos' ,lnk:'xprts_gstn_proyct_wideastrm_ctlg.php'  },
         { 'titulo':'Listado de Parametros Calidad-Proyectos' ,lnk:'xprt_qstn_wideas.php'  },
       
         ],

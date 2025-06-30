@@ -117,9 +117,9 @@ se pone en espera de respuesta
   <script src="../grpgstn/fncns_proyct.js"></script> 
   <script src="./fncns_xprts.js"></script>
   <script>
-    setMenu('admn',1);
+    setMenu('exprt',1);
     Prepare_Quest();
-    fillSelec_G100('enespForm_cargoactual_clf');
+    fillSelec_G100(0,'enespForm_cargoactual_clf');
     fillTable_Proyecto('tableCardHead') //llenar datos  deList               
     </script>
 </body>

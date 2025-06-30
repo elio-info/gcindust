@@ -1,59 +1,64 @@
 <?php include_once "../conexiones/header.php"; ?>
 <!-- llena ya el div.wrapper esta iniciado-->
+ 1' mostrar mis xprt, mostrar la lista de la ideas y decidir a quienes la hago la encuesta. Paro.
+  <img src="../proy/w tormenta ideas.jpg" alt="" srcset="">
+2' muestro lista con avance de proceso y acciones a realizar [aceptado,denegado]
+ <img src="../proy/encuesta w tormenta ideas.jpg" alt="" srcset="">
+ 3' cerrada la lista
     <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <div class="container-fluid">
-                     <div class="row py-2">
+                <!-- adicionar proyecto -->
+                    <div class="row py-2">
                         <div class="col col-lg-10 ">                          
                             <div class="row">
                                 <div class="col-10">
                                     <div id="FormDiv" class="card shadow mb-5" style="display: none;">
                                         <div id="mensajesDiv" class="error-text"></div>
-                                        
                                             <div class="card-header py-2" id="cabezaScc">
-                                                Agregar Persona
+                                                Agregar Proyecto a Controlar
                                             </div>
                                             <div class="card-body">
-                                                <form id="persForm" name="persForm" method="POST" autocomplete="off">
+                                                <form id="pryForm" name="pryForm"method="POST" autocomplete="off">
                                                     <input type="hidden" name="tipo_operacion" value="guardar">
-                                                    <input type="hidden" name="persForm_idtt" >
+                                                    <input type="hidden" name="pryForm_id" >
                                                     <div class="name-details">
                                                         <div class="field input">
-                                                            <label>Carnet de Identidad de la Persona</label>
-                                                            <input type="text" name="persForm_id" placeholder="Nombre" required>
+                                                            <label>Nombre del Proyecto</label>
+                                                            <input type="text" name="pryForm_nombre" placeholder="Nombre" required>
                                                         </div>          
                                                     </div> 
-                                                    <div class="resp-details">
+                                                    <div class="name-details">
                                                         <div class="field input">
-                                                            <label>Nombre de la Persona</label>
-                                                            <input type="text" name="persForm_nombre" placeholder="Nombre" required>
-                                                        </div>
-                                                        <div class="field input">
-                                                            <label>Apellidos de la Persona</label>
-                                                            <input type="text" name="persForm_apll" placeholder="Apellidos" required>
-                                                        </div>         
+                                                            <label>Nombre del Responsable - Proyecto</label>
+                                                            <input type="text" name="pryForm_resp" placeholder="Nombre del Responsable" required>
+                                                        </div>    
+                                                        <div class="field select">
+                                                            <label>Empresa del Responsable - Proyecto</label>
+                                                            <select name="pryForm_emp" id="pryForm_emp" required>
+                                                            </select>                                                            
+                                                        </div>      
                                                     </div>        
-                                                     <div class="correo-details">
-                                                        <div class="field input">
-                                                            <label>Departamento </label>
-                                                            <select name="persForm_dpto" id="persForm_dpto"></select>
-                                                        </div>          
-                                                    </div>
-                                                    <div class="dcc-details">
-                                                        <div class="field input">
-                                                            <label>Usuario en Sistema</label>
-                                                            <input type="text" name="persForm_uss" placeholder="Usuario" required>
-                                                        </div>          
-                                                    </div> 
-                                                    <div class="cell-details">
-                                                        <div class="field input">
-                                                            <label>Clave de Acceso</label>
-                                                            <input type="text" name="persForm_clv" placeholder="######" >
+                                                    <div class="date-details">
+                                                        <div class="field date">
+                                                            <label for="pryForm_fchsolc">Fecha de Solicitud - Proyecto</label>
+                                                            <input type="date" name="pryForm_fchsolc" >
                                                         </div>          
                                                     </div>        
-                                                    
+                                                    <div class="number-details">
+                                                        <div class="field number">
+                                                            <label>Presupuesto - Proyecto</label>
+                                                            <input type="number" name="pryForm_dinero" >
+                                                        </div>          
+                                                    </div>        
+                                                    <div class="number-details">
+                                                        <div class="field number">
+                                                            <label>Tiempo de ejecucion - Proyecto</label>
+                                                            <input type="number" name="pryForm_tiempo" >
+                                                        </div>          
+                                                    </div>        
                                                     <div class="field button">
-                                                        <input id="submitBtn" type="submit" name="submitBtn" value="Agregar">
+                                                        <input id="submit" type="submit" name="submit" value="Agregar">
                                                     </div>
                                                 </form>
                                             </div>                                                
@@ -64,6 +69,7 @@
                         </div>
 
                     </div>
+                    <!-- listado de proyectos -->
                     <div id="listde" class="row py-2">
                             <div class="d-flex flex-column" id="content-wrapper">
                                 <div id="content">
@@ -75,7 +81,7 @@
                                                 <div class="card-header py-3">
                                                     <div class="row justify-content-between">
                                                         <div class="col col-5" >
-                                                                <p class=" text-primary m-0 fw-bold">Listado de Empresas</p>                                               
+                                                                <p class=" text-primary m-0 fw-bold">Listado de Proyectos</p>                                               
                                                         </div>
                                                         <div class="col col-3">
                                                             <button type="button" class="btn btn-dark" onclick="AddInfo();">Adicionar</button>     
@@ -109,12 +115,12 @@
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="../grpgstn/fncns_dptoentidad.js"></script>
-  <script src="../grpgstn/fncns_persona.js"></script>
+  <script src="./fncns_empresa.js"></script>  
+  <script src="./fncns_proyct.js"></script>
   <script>
-        setMenu('admn',3);
-        fillSelec_Departamento('persForm_dpto');
-        fillTable_Persona('tableCardHead') //llenar datos  deList               
+    setMenu('exprt',2);
+    fillSelec_Empresa('pryForm_emp');
+    fillTable_Proyecto('tableCardHead') //llenar datos  deList               
     </script>
 </body>
 

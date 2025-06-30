@@ -77,7 +77,7 @@ const fillSelec_Empresa = async (tab_datos,dataSelc=-1) =>{
                let opt_datos = document.createElement('option')
                opt_datos.value=item.id_empresa;
                opt_datos.text=item.nombre_empresa;                       
-               if (item.id_area==dataSelc) {
+               if (item.id_empresa==dataSelc) {
                 opt_datos.selected=true
                }
            doc_tab_datos.appendChild(opt_datos)

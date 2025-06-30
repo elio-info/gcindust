@@ -9,11 +9,13 @@ let url_gc='catalogo_grados100tfk.php'
  * the specified data (`tipo_operacion` set to `'listar'`) to the specified URL (`url_gc`) for the
  * resource `grado_cientifico`. The `true
  */
-async function getDataFromTable_GradosCientificos(operacion='listar',id_gc='') {   
+async function getDataFromTable_GradosCientificos(root=1,operacion='listar',id_gc='') {   
+    let ref=root? '':'../grpgstn/';    
     const datoso = new FormData();
     datoso.append("tipo_operacion",operacion) ; 
     datoso.append("gcForm_id",id_gc) ;
-    return await submitForm(datoso,url_gc,'grado_cientifico',true) ;     
+    let valor= await submitForm(datoso,ref+url_gc,'grado_cientifico',true) ;
+    return   valor; 
     }  
 
     
@@ -52,8 +54,8 @@ const fillTable_G100 = async (paramsTableTrName) =>{
  * @param {int} dataSelc item selected on arreglos d datos
  * @param {Object} tab_datos objeto <td>
  */
-const fillSelec_G100 = async (tab_datos,dataSelc=-1) =>{
-    let mydata= (await getDataFromTable_GradosCientificos()).data
+const fillSelec_G100 = async (root=1,tab_datos,dataSelc=-1) =>{
+    let mydata= (await getDataFromTable_GradosCientificos(root)).data
     
     let doc_tab_datos = document.getElementById(tab_datos)
     

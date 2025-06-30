@@ -1,19 +1,19 @@
 
-let url_pry='catalogo_proyct.php'
+let url_pers='catalogo_persona.php'
 
 /**
- * The function `getAllDataFromTablePry` asynchronously retrieves all data from a table
+ * The function `getAllDataFromTablePers` asynchronously retrieves all data from a table
  * named 'Empresa'.
- * @returns The `getAllDataFromTablePry` function is returning the result of the
+ * @returns The `getAllDataFromTablePers` function is returning the result of the
  * `submitForm` function, which is being awaited. The `submitForm` function is submitting a form with
- * the specified data (`tipo_operacion` set to `'listar'`) to the specified URL (`url_pry`) for the
+ * the specified data (`tipo_operacion` set to `'listar'`) to the specified URL (`url_pers`) for the
  * resource `empresa`. The `true
  */
-async function getDataFromTablePry(operacion='listar',id_pry='') {   
+async function getDataFromTablePers(operacion='listar',id_pers='') {   
     const datoso = new FormData();
     datoso.append("tipo_operacion",operacion) ; 
-    datoso.append("pryForm_id",id_pry) ;
-    return await submitForm(datoso,url_pry,'proyecto',true) ;     
+    datoso.append("persForm_id",id_pers) ;
+    return await submitForm(datoso,url_pers,'persona',true) ;     
     }  
 
     
@@ -21,10 +21,10 @@ async function getDataFromTablePry(operacion='listar',id_pry='') {
  * para pintar tablas
  * @param {Object} paramsTableTrName id for the objet <table> to create the list
  */
-const fillTable_Proyecto = async (paramsTableTrName) =>{
+const fillTable_Persona = async (paramsTableTrName) =>{
     //
-    var datapry= (await getDataFromTablePry()).data;     
-    console.log(datapry);  
+    var datapers= (await getDataFromTablePers()).data;     
+    console.log(datapers);  
    
    if ($('#'+paramsTableTrName+'_wrapper')[0]) {
         // alert('cojelo');
@@ -32,24 +32,24 @@ const fillTable_Proyecto = async (paramsTableTrName) =>{
     }
     $('#'+paramsTableTrName).DataTable({
         columns:[
-            { title: 'Nombre Proyecto',data:'nombre_proyecto'}, 
-            { title: 'Responsable ',data:'nombre_responsable_proyecto'}, 
-            { title: 'Empresa ',data:'nombre_empresa'}, 
-            { title: 'Solicitado ',data:'dia_solicitud_proyecto'}, 
-            { title: 'Presupuesto',data:'presupuesto_proyecto'},
-            { title: 'Duracion ',data:'tiempo_estimado_proyecto'}, 
-            { title: 'Estado',data:'nombre_estado_proyecto'},
+            { title: 'Nombre Persona',data:'nombre_persona'}, 
+            { title: 'Apellidos ',data:'apellido_persona'}, 
+            { title: 'Identidad ',data:'id_persona'}, 
+            { title: 'Departamento ',data:'nombre_departamento'}, 
+            // { title: 'Presupuesto',data:'presupuesto_persona'},
+            // { title: 'Duracion ',data:'tiempo_estimado_persona'}, 
+            // { title: 'Estado',data:'nombre_estado_persona'},
             { title: 'Acciones',
-                data:'id_proyecto',
+                data:'id_persona',
                 render:function (data) {
                     var botones=`
-         <button class="btn btn-dark" onclick="preEditarPry(${data})">Editar</button>
-         <button class="btn btn-danger"  onclick="preEliminarPry(${data})">Eliminar</button>`              
+         <button class="btn btn-dark" onclick="preEditarPers(${data})">Editar</button>
+         <button class="btn btn-danger"  onclick="preEliminarPers(${data})">Eliminar</button>`              
           return botones;
                 }
         }
         ],
-        data: datapry
+        data: datapers
     })
 }
 
@@ -58,8 +58,8 @@ const fillTable_Proyecto = async (paramsTableTrName) =>{
  * @param {int} dataSelc item selected on arreglos d datos
  * @param {Object} tab_datos objeto <td>
  */
-const fillSelec_Proyecto = async (tab_datos,dataSelc=-1) =>{
-    let mydata= (await getDataFromTable_Proyecto()).data
+const fillSelec_Persona = async (tab_datos,dataSelc=-1) =>{
+    let mydata= (await getDataFromTable_Persona()).data
     
     let doc_tab_datos = document.getElementById(tab_datos)
     
@@ -77,9 +77,9 @@ const fillSelec_Proyecto = async (tab_datos,dataSelc=-1) =>{
        //# code...       
            for(let item of mydata){
                let opt_datos = document.createElement('option')
-               opt_datos.value=item.id_proyecto;
-               opt_datos.text=item.nombre_proyecto;                       
-               if (item.id_proyecto==dataSelc) {
+               opt_datos.value=item.id_persona;
+               opt_datos.text=item.nombre_persona+' '+item.apellido_persona;                       
+               if (item.id_persona==dataSelc) {
                 opt_datos.selected=true
                }
            doc_tab_datos.appendChild(opt_datos)
@@ -88,16 +88,16 @@ const fillSelec_Proyecto = async (tab_datos,dataSelc=-1) =>{
 }
 
 /**
- * The function `updateSelectedPry` updates the selected option in a dropdown menu based on the
+ * The function `updateSelectedPers` updates the selected option in a dropdown menu based on the
  * provided data.
  * @param tab_datos - The `tab_datos` parameter is the ID of the HTML select element that you want to
  * update the selected option for.
- * @param dataSelc - The `dataSelc` parameter in the `updateSelectedPry` function represents the
+ * @param dataSelc - The `dataSelc` parameter in the `updateSelectedPers` function represents the
  * value that you want to select in the dropdown list specified by the `tab_datos` parameter. The
  * function loops through the options in the dropdown list and sets the `selected` property to `true`
  * for the
  */
-const updateSelectedPry =  (tab_datos,dataSelc) =>{
+const updateSelectedPers =  (tab_datos,dataSelc) =>{
     let doc_tab_datos = document.getElementById(tab_datos)
        //# code...       
            for(let item of doc_tab_datos){
@@ -105,19 +105,19 @@ const updateSelectedPry =  (tab_datos,dataSelc) =>{
        }  
 }
 
-let pryForm_onPage = document.getElementById('pryForm');//all forms
+let persForm_onPage = document.getElementById('persForm');//all forms
 
-/* The `pryForm_onPage.addEventListener( 'submit' , async (e) =>{ ... })` code snippet is adding an
-event listener to the form with the ID `pryForm_onPage`. When the form is submitted, the following
+/* The `persForm_onPage.addEventListener( 'submit' , async (e) =>{ ... })` code snippet is adding an
+event listener to the form with the ID `persForm_onPage`. When the form is submitted, the following
 actions are performed: */
-pryForm_onPage.addEventListener('submit' , async (e) =>{
+persForm_onPage.addEventListener('submit' , async (e) =>{
    e.preventDefault();
     // areaForm_onPage['tipo_operacion']='guardar';
 
-    let pry_data= await submitForm(new FormData (pryForm_onPage) ,url_pry);
-    pryForm_onPage.reset();//clean form
+    let pers_data= await submit_Form(new FormData (persForm_onPage) ,url_pers);
+    persForm_onPage.reset();//clean form
     //ppp.status
-    if (pry_data['status']) {
+    if (pers_data['status']) {
         CloseInfo();       
     } else {
        mostrarMensaje('mensajesDiv','error','No se pudo'); 
@@ -128,19 +128,19 @@ pryForm_onPage.addEventListener('submit' , async (e) =>{
  * The function `preEliminarEmp` is an asynchronous function that prepares and submits a form to delete
  * a scientific degree entry, displaying a success message and updating the table if the deletion is
  * successful.
- * @param id_proyecto - The `id_proyecto` parameter in the `preEliminarEmp` function is
+ * @param id_persona - The `id_persona` parameter in the `preEliminarEmp` function is
  * the ID of the scientific degree that you want to delete. This function prepares a form data object
  * with the operation type set to "eliminar" (delete) and the ID of the scientific degree to be deleted
  */
-const preEliminarPry= async (id_proyecto) => {
+const preEliminarPers= async (id_persona) => {
     let delFrm=new FormData();
     delFrm.append('tipo_operacion','eliminar');
-    delFrm.append('id',id_proyecto);
-    let elto = await submitForm(delFrm,url_pry);
+    delFrm.append('id',id_persona);
+    let elto = await submitForm(delFrm,url_pers);
 
     if (elto['status']) {
         mostrarMensaje('mensajesDiv','success','Eliminado.');
-        fillTablePry('tableCardHead');         
+        fillTablePers('tableCardHead');         
     }
     
 }
@@ -152,25 +152,25 @@ const preEliminarPry= async (id_proyecto) => {
  * identifier for a specific record in a table of Grados Cientificos (Scientific Degrees). It is likely
  * used to retrieve data related to a specific Grado Cientifico for editing purposes
  */
-const preEditarPry= async (paramsId) => {
+const preEditarPers= async (paramsId) => {
     //buscar 
-    let pry_data = (await getDataFromTablePry('buscar',paramsId)).data[0];
+    let pers_data = (await getDataFromTablePers('buscar',paramsId)).data[0];
     AddInfo();
     // cambio de tipo op
-    pryForm_onPage['tipo_operacion'].value='update';
-    pryForm_onPage['pryForm_id'].value=paramsId;    
-    pryForm_onPage['pryForm_nombre'].value=pry_data.nombre_proyecto;  
-    pryForm_onPage['pryForm_resp'].value=pry_data.responsable_proyecto; 
+    persForm_onPage['tipo_operacion'].value='update';
+    persForm_onPage['persForm_id'].value=paramsId;    
+    persForm_onPage['persForm_nombre'].value=pers_data.nombre_persona;  
+    persForm_onPage['persForm_resp'].value=pers_data.responsable_persona; 
 
-    fillSelec_Empresa('pryForm_emp',pry_data.id_empresa)
+    fillSelec_Empresa('persForm_emp',pers_data.id_empresa)
 
-    pryForm_onPage['pryForm_fchsolc'].value=pry_data.dia_solicitud_proyecto; 
-    pryForm_onPage['pryForm_dinero'].value=pry_data.presupuesto_proyecto;  
-    pryForm_onPage['pryForm_tiempo'].value=pry_data.tiempo_estimado_proyecto;
-    // pryForm_onPage['pryForm_tiempo'].value=pry_data.tiempo_estimado_proyecto;
+    persForm_onPage['persForm_fchsolc'].value=pers_data.dia_solicitud_persona; 
+    persForm_onPage['persForm_dinero'].value=pers_data.presupuesto_persona;  
+    persForm_onPage['persForm_tiempo'].value=pers_data.tiempo_estimado_persona;
+    // persForm_onPage['persForm_tiempo'].value=pers_data.tiempo_estimado_persona;
       
-    pryForm_onPage['submit'].value='Actualizar';    
+    persForm_onPage['submit'].value='Actualizar';    
     // set foco
-    pryForm_onPage['pryForm_nombre'].focus();
+    persForm_onPage['persForm_nombre'].focus();
 }
 

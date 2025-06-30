@@ -22,13 +22,13 @@
             $pryF = $_POST['pryForm_fchsolc']; 
             $pryD = $_POST['pryForm_dinero'];  
             $pryT = $_POST['pryForm_tiempo'];          
-             $qry="insert into proyecto (nombre_proyecto,nombre_responsable_proyecto,dia_solicitud_proyecto,presupuesto_proyecto,tiempo_estimado_proyecto,id_empresa,estado_proyecto)values('$pryN','$pryR','$pryF',$pryD,$pryT,$pryE,0)";
+             $qry="insert into proyecto (nombre_proyecto,nombre_responsable_proyecto,dia_solicitud_proyecto,presupuesto_proyecto,tiempo_estimado_proyecto,id_empresa,estado_proyecto)values('$pryN','$pryR','$pryF',$pryD,$pryT,$pryE,1)";
             //  print_r ($qry);
              $rs=$consultaso->addP($qry);
             //  print_r ($rs);
             //  exit;
              echo json_encode(
-                $rs['status']==1 ? $consultaso->getAll_OrderBy('proyecto','id_proyecto')
+                $rs['status']==1 ? $consultaso->getAll_OrderBy('vw_pry','id_proyecto')
                 :
                 $rs
              );
@@ -48,7 +48,7 @@
             //  print_r ($rs);
             //  exit;
              echo json_encode(
-                $rs['status']==1 ? $consultaso->getAll_OrderBy('proyecto','id_proyecto')
+                $rs['status']==1 ? $consultaso->getAll_OrderBy('vw_pry','id_proyecto')
                 :
                 $rs
              );
@@ -67,7 +67,7 @@
         break;    
         case 'listar':
             # code...listar todos
-            echo json_encode(  $consultaso->getAll_OrderBy('proyecto','id_proyecto')      );
+            echo json_encode(  $consultaso->getAll_OrderBy('vw_pry','id_proyecto')      );
         break;
     }
     // echo json_encode($consultaso);
