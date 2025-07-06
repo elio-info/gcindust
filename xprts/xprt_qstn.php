@@ -1,6 +1,11 @@
 <?php include_once "../conexiones/header.php"; ?>
 <!-- llena ya el div.wrapper esta iniciado-->
-se muestra el cuestionario del experto que se logueo
+se muestra el listado de cuestionarios pendientes a responder del experto que se logueo
+
+LISTA DE cuestionarios
+
+mostrar cuestionario seleccionado
+
 <img src="../proy/xprts qstn.jpg" alt="" srcset="">
 se pone en espera de respuesta
 <div class="container_my">

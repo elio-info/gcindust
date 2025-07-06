@@ -1,5 +1,5 @@
 
-let url_pry='catalogo_proyct.php'
+let url_pry='../conexiones/catalogo_proyct.php'
 
 /**
  * The function `getAllDataFromTablePry` asynchronously retrieves all data from a table

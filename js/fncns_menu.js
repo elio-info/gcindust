@@ -1,35 +1,40 @@
 const titulosSite=[
     {
+        'cargo':'clnt',
+        'ruta':'clnt',
+        'lnk':[
+            { 'titulo':'Responder Encuesta de Satisfaccion' , lnk:'clnt_testsatif.php'}
+        ]
+    },
+    {
         'cargo':'exprt',
         'ruta':'xprts',
         'lnk':[
-        { 'titulo':'Listado de Cuestionarios' ,lnk:'xprt_qstn.php'  },
+        { 'titulo':'Listado de Cuestionarios' ,lnk:'xprt_qstn.php'  },//para responder
         { 'titulo':'Listado de Tormentas Ideas-Proyectos' ,lnk:'xprts_gstn_proyct_wideastrm_ctlg.php'  },
         { 'titulo':'Listado de Parametros Calidad-Proyectos' ,lnk:'xprt_qstn_wideas.php'  },
       
         ],
     },
     {
-        'cargo':'admn',
+        'cargo':'invst',
         'ruta':'grpgstn',
         'lnk':[
-        { 'titulo':'Gestionar Proyectos',lnk:'grpgstn_proyct_ctlg.php'  },
-        { 'titulo':'Gestionar Dpto Entidad',lnk:'grpgstn_dptoentidad_ctlg.php'  },
-        { 'titulo':'Gestionar Empresa',lnk:'grpgstn_empresa_ctlg.php'  },
-        { 'titulo':'Gestionar Grados Cientificos',lnk:'grpgstn_grados100tfk_ctlg.php'  },
-        { 'titulo':'Gestionar Personas ',lnk:'grpgstn_persona_ctlg.php'  },
-      
+        { 'titulo':'Gestionar Proyectos',lnk:'grpgstn_proyct_ctlg.php'  },//mis proyectos
+        { 'titulo':'Gestionar Personas ',lnk:'grpgstn_persona_ctlg.php'  },//crear xprt y clnts
+        { 'titulo':'Controlar Expertos-Proyectos',lnk:'grpgstn_proyct_xp_ctlg.php'  },
+        { 'titulo':'Gestionar Tormentas-Proyectos',lnk:'grpgstn_proyct_wideastrm_ctlg.php'  },
+        { 'titulo':'Gestionar Listad Chequeo-Proyectos',lnk:'grpgstn_proyct_chcklst_ctlg.php'  },
+
         ],
     },
     {
         'cargo':'super',
         'ruta':'grpgstn',
-        'lnk':[    
-        { 'titulo':'Controlar Expertos-Proyectos',lnk:'grpgstn_proyct_xp_ctlg.php'  },
-        { 'titulo':'Gestionar Tormentas-Proyectos',lnk:'grpgstn_proyct_wideastrm_ctlg.php'  },
-        { 'titulo':'Gestionar Listad Chequeo-Proyectos',lnk:'grpgstn_proyct_chcklst_ctlg.php'  },
-
-       
+        'lnk':[  
+            { 'titulo':'Gestionar Grados Cientificos',lnk:'grpgstn_grados100tfk_ctlg.php'  },
+            { 'titulo':'Gestionar Dpto Entidad',lnk:'grpgstn_dptoentidad_ctlg.php'  },//todos
+            { 'titulo':'Gestionar Empresa',lnk:'grpgstn_empresa_ctlg.php'  },//todos
         ]
 }]
 
