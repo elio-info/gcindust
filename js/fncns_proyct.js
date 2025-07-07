@@ -27,7 +27,7 @@ const fillTable_Proyecto = async (paramsTableTrName) =>{
     console.log(datapry); 
     
     datapry.map(val =>{
-        val['hacer']={est:val.estado_proyecto,id:val.id_proyecto};
+        val['hacer']={est:val.estado_proyecto,id:val.id_proyecto,nm:val.nombre_proyecto};
     })
    
    if ($('#'+paramsTableTrName+'_wrapper')[0]) {
@@ -55,7 +55,7 @@ const fillTable_Proyecto = async (paramsTableTrName) =>{
                             break;
                         case 3:
                             botones=`
-                                <button class="btn btn-warning" onclick="preControlarPry(${data.id})">Controlar</button>`  
+                                <button class="btn btn-warning" onclick="preControlarPry(${data.id},'${data.nm}')">Controlar</button>`  
                             break;
                         default:
 
@@ -161,7 +161,6 @@ const preEliminarPry= async (id_proyecto) => {
     }
     
 }
-
 /**
  * The function `preEditarEmp` is an asynchronous function that retrieves data from a table, updates
  * form fields with the retrieved data, and sets focus on a specific field.
@@ -190,7 +189,6 @@ const preEditarPry= async (paramsId) => {
     // set foco
     pryForm_onPage['pryForm_nombre'].focus();
 }
-
 const preAprobarPry= async (id_proyecto) => {
     let st2_pry=new FormData();
     st2_pry.append('tipo_operacion','upd_state');
@@ -213,3 +211,47 @@ const preCancelarPry= async (id_proyecto) => {
         fillTable_Proyecto('tableCardHead');         
     }    
 }
+const preControlarPry= async (id_proyecto,nombre_proyecto) => {
+    let st2_pry=document['goto_pry'];
+    st2_pry.action='grpgstn_proyct_pry.php';
+    st2_pry['id_pry'].value=id_proyecto;
+    st2_pry['nm_pry'].value=nombre_proyecto;
+    st2_pry.submit();
+        
+}
+// ================== grupo  =========================
+async function getDataFromTable_GrpsPry(operacion='lstr_gp',id_pry='') {   
+    const datoso = new FormData();
+    datoso.append("tipo_operacion",operacion) ; 
+    datoso.append("pryForm_id",id_pry) ;
+    return await submitForm(datoso,url_pry,'grp_proyecto',true) ;     
+    }  
+
+let grp_proyct=document.getElementById('prygrpFrm');
+async function fillTable_GrpsPry(params,pry) {
+    let data=(await getDataFromTable_GrpsPry('lstr_gp',pry)).data
+    let lst=document.getElementById(params);
+    lst.innerHTML=``;
+    if (data.length>0) {
+        data.map((val)=>{
+          lst.innerHTML +=`
+          <div class="row">
+         <a href='#' onclick="linkExprt(${val.id_proyecto},${val.id_grupo})"> Nombre: ${val.nombre_grupo}
+         </a> </div>
+          `;  
+        })
+    } else {
+       lst.innerHTML=`No tiene grupos` ;
+    }
+}
+grp_proyct.addEventListener('submit', async (e)=> {
+    e.preventDefault();
+    let grp_nm= new FormData (grp_proyct);
+    // grp_nm.append('tipo_operacion', $('#prygrpFrm_nombre').val());    
+    // grp_nm.append('nombre', $('#prygrpFrm_nombre').val());
+    // grp_nm.append('id_pry', $('#id_pry').val());
+    let grps= await submitForm(grp_nm ,url_pry,'add_grp');
+    console.log(grps);
+     fillTable_GrpsPry('list_grpsPry',$('#id_pry').val())
+}
+)

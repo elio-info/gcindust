@@ -69,7 +69,7 @@
         break;    
         case 'listar':
             # code...listar todos
-            $persCr = $_POST['persForm_cargo']=!'*'?'':'where rango='.$_POST['persForm_cargo'];
+            $persCr = $_POST['persForm_cargo']=!'*'?'':'where rango'.$_POST['persForm_cargo'];
             $qry = 'SELECT * from vw_persona '.$persCr;           
             // print_r ($qry);
             $rs=$consultaso->findAll_By($qry);            

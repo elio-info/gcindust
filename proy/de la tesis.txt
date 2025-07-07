@@ -1,2 +1,7 @@
 Proyecto:
     - en el listado:propuesto [aprueba|deniega],aprobado[ir a trabjar con el],denegado[solo ver el estado]
+    - el proy me da:
+        = expertos
+        = tormenta
+        = cheqeo
+        = satisfaccion

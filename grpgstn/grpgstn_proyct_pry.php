@@ -1,8 +1,32 @@
 <?php include_once "../conexiones/header.php"; ?>
 <!-- llena ya el div.wrapper esta iniciado-->
+
     <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <div class="container-fluid">
+                    <div class="row py-2" id="grupos">
+                        <div class="row">
+                            <h2>Grupos del Proyecto: 
+                                <?=$_POST['nm_pry']?>
+                            </h2>
+                        </div>
+                        <div class="row" id="listagrupos">
+                            <form id="prygrpFrm">
+                                <input type="hidden" name="tipo_operacion" value="add_grp_nm">
+                                <input type="hidden" name="id_pry" value="<?=$_POST['id_pry']?>">
+                                <div class="col">
+                                    <label for="prygrpFrm_nombre">Nombre del Grupo</label>
+                                    <input type="text" name="prygrpFrm_nombre" id="prygrpFrm_nombre">
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-success" >Agregar</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="list_grpsPry" class="row py-2">
+
+                        </div>
+                    </div>
                 <!-- adicionar proyecto -->
                     <div class="row py-2">
                         <div class="col col-lg-10 ">                          
@@ -102,12 +126,6 @@
                 </div>
             </div>
     </div>
-    <div class="d-none">
-        <form name="goto_pry" method="post">
-            <input type="hidden" name="id_pry" id="id_pry">
-            <input type="hidden" name="nm_pry" id="nm_pry">
-        </form>
-    </div>
     
  <!-- fin ya el div.wrapper esta finalizado-->
 </div>
@@ -116,12 +134,13 @@
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="../js/fncns_empresa.js"></script>  
+  <script src="../js/fncns_empresa.js"></script> 
+  <script src="../js/fncns_xprts.js"></script> 
   <script src="../js/fncns_proyct.js"></script>
   <script>
     setMenu('invst',1);
     fillSelec_Empresa('pryForm_emp');
-    fillTable_Proyecto('tableCardHead') //llenar datos  deList               
+    fillTable_GrpsPry('list_grpsPry',<?=$_POST['id_pry']?>) //llenar datos  deList               
     </script>
 </body>
 
