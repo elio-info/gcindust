@@ -23,8 +23,8 @@
             $persU = $_POST['persForm_uss'];            
             $persC = $_POST['persForm_clv']; 
             $persD = $_POST['persForm_dpto'];  
-            // $persT = $_POST['persForm_pt'];          
-             $qry="insert into persona (id_persona,nombre_persona,apellido_persona,departamento_persona,usuario,contrasena)values('$persId','$persN','$persA',$persD,'$persU','$persC')";
+            $persCr = $_POST['persForm_cargo'];          
+             $qry="insert into persona (id_persona,nombre_persona,apellido_persona,departamento_persona,usuario,contrasena,rango)values('$persId','$persN','$persA',$persD,'$persU','$persC',$persCr)";
              print_r ($qry);
              $rs=$consultaso->addP($qry);
              print_r ($rs);
@@ -69,7 +69,11 @@
         break;    
         case 'listar':
             # code...listar todos
-            echo json_encode(  $consultaso->getAll_OrderBy('vw_persona','id_persona')      );
+            $persCr = $_POST['persForm_cargo']=!'*'?'':'where rango='.$_POST['persForm_cargo'];
+            $qry = 'SELECT * from vw_persona '.$persCr;           
+            // print_r ($qry);
+            $rs=$consultaso->findAll_By($qry);            
+            echo json_encode($rs);
         break;
     }
     // echo json_encode($consultaso);

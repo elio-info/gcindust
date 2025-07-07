@@ -39,6 +39,15 @@
                                                             <select name="persForm_dpto" id="persForm_dpto"></select>
                                                         </div>          
                                                     </div>
+                                                    <div class="cargo-details">
+                                                        <div class="field input">
+                                                            <label>Departamento </label>
+                                                            <select name="persForm_cargo" id="persForm_cargo">
+                                                                <option value="3">Posible Experto</option>
+                                                                <option value="4">Cliente Empresa</option>
+                                                            </select>
+                                                        </div>          
+                                                    </div>
                                                     <div class="dcc-details">
                                                         <div class="field input">
                                                             <label>Usuario en Sistema</label>

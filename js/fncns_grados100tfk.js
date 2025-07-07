@@ -1,5 +1,5 @@
 
-let url_gc='catalogo_grados100tfk.php'
+let url_gc='../conexiones/catalogo_grados100tfk.php'
 
 /**
  * The function `getAllDataFromTable_GradosCientificos` asynchronously retrieves all data from a table

@@ -52,6 +52,20 @@
                 :
                 $rs
              );
+        break;
+        case 'upd_state'://bajo a la bd
+            $pryId = $_POST['id'];
+            $prySt = $_POST['estado'];            
+            $qry="UPDATE proyecto SET estado_proyecto =$prySt WHERE id_proyecto =$pryId ";
+            //  print_r ($qry);
+             $rs=$consultaso->addP($qry);
+            //  print_r ($rs);
+            //  exit;
+             echo json_encode(
+                $rs['status']==1 ? $consultaso->getAll_OrderBy('vw_pry','id_proyecto')
+                :
+                $rs
+             );
         break;    
         case 'eliminar':
             $id = $_POST['id'];

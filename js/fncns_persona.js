@@ -1,5 +1,5 @@
 
-let url_pers='catalogo_persona.php'
+let url_pers='../conexiones/catalogo_persona.php'
 
 /**
  * The function `getAllDataFromTablePers` asynchronously retrieves all data from a table
@@ -9,10 +9,11 @@ let url_pers='catalogo_persona.php'
  * the specified data (`tipo_operacion` set to `'listar'`) to the specified URL (`url_pers`) for the
  * resource `empresa`. The `true
  */
-async function getDataFromTablePers(operacion='listar',id_pers='') {   
+async function getDataFromTablePers(operacion='listar',id_pers='',cargo_pers='*') {   
     const datoso = new FormData();
     datoso.append("tipo_operacion",operacion) ; 
     datoso.append("persForm_id",id_pers) ;
+    datoso.append("persForm_cargo",cargo_pers) ;
     return await submitForm(datoso,url_pers,'persona',true) ;     
     }  
 
@@ -21,9 +22,9 @@ async function getDataFromTablePers(operacion='listar',id_pers='') {
  * para pintar tablas
  * @param {Object} paramsTableTrName id for the objet <table> to create the list
  */
-const fillTable_Persona = async (paramsTableTrName) =>{
+const fillTable_Persona = async (paramsTableTrName,cargo='*') =>{
     //
-    var datapers= (await getDataFromTablePers()).data;     
+    var datapers= (await getDataFromTablePers('listar','',cargo)).data;     
     console.log(datapers);  
    
    if ($('#'+paramsTableTrName+'_wrapper')[0]) {
@@ -114,7 +115,7 @@ persForm_onPage.addEventListener('submit' , async (e) =>{
    e.preventDefault();
     // areaForm_onPage['tipo_operacion']='guardar';
 
-    let pers_data= await submit_Form(new FormData (persForm_onPage) ,url_pers);
+    let pers_data= await submitForm(new FormData (persForm_onPage) ,url_pers);
     persForm_onPage.reset();//clean form
     //ppp.status
     if (pers_data['status']) {

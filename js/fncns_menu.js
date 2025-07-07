@@ -21,7 +21,7 @@ const titulosSite=[
         'ruta':'grpgstn',
         'lnk':[
         { 'titulo':'Gestionar Proyectos',lnk:'grpgstn_proyct_ctlg.php'  },//mis proyectos
-        { 'titulo':'Gestionar Personas ',lnk:'grpgstn_persona_ctlg.php'  },//crear xprt y clnts
+        { 'titulo':'Gestionar Expertos y Clientes',lnk:'grpgstn_persona_ctlg.php'  },//crear xprt y clnts
         { 'titulo':'Controlar Expertos-Proyectos',lnk:'grpgstn_proyct_xp_ctlg.php'  },
         { 'titulo':'Gestionar Tormentas-Proyectos',lnk:'grpgstn_proyct_wideastrm_ctlg.php'  },
         { 'titulo':'Gestionar Listad Chequeo-Proyectos',lnk:'grpgstn_proyct_chcklst_ctlg.php'  },
@@ -35,6 +35,7 @@ const titulosSite=[
             { 'titulo':'Gestionar Grados Cientificos',lnk:'grpgstn_grados100tfk_ctlg.php'  },
             { 'titulo':'Gestionar Dpto Entidad',lnk:'grpgstn_dptoentidad_ctlg.php'  },//todos
             { 'titulo':'Gestionar Empresa',lnk:'grpgstn_empresa_ctlg.php'  },//todos
+            { 'titulo':'Gestionar Investigadores',lnk:'grpgstn_investigadores_ctlg.php'  },//todos
         ]
 }]
 
@@ -138,7 +139,7 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
                
                 tt+=` <li class="nav-item dropdown arrow">
                                 <div class="nav-item dropdown arrow">
-                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                <a class="dropdown-toggle nav-link  text-dark" aria-expanded="false" data-bs-toggle="dropdown" href="#">
                                     <h5 class="d-lg-inline me-2  ">
                                     ${val.cargo} 
                                     </h5>                                    
@@ -147,8 +148,8 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
                                    let listaVin=``;
                                    
                                     val.lnk.map((item) =>{
-                                        listaVin+=` <a class="dropdown-item" href="${'../' + val.ruta+ '/' +item.lnk}">
-                                    <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>${item.titulo}</a>                                    
+                                        listaVin+=` <a class="dropdown-item text-dark" href="${'../' + val.ruta+ '/' +item.lnk}">
+                                    <i class="fas fa-user fa-sm fa-fw me-2 "></i>${item.titulo}</a>                                    
                                     `
                                     })
                                 tt+= listaVin +`
@@ -166,17 +167,19 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
                             </li>
                             <div class=" d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow bg-dark">
-                                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-                                    <h5 class="d-lg-inline me-2  ">
+                                <div class="nav-item dropdown no-arrow bg-warning">
+                                <a class="dropdown-toggle nav-link text-dark " aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                    <h5 class="d-lg-inline me-2 ">
                                     ${nombreUsuario} 
                                     </h5>
                                     <i class="far fa-user-circle"></i>
                                     </a>
-                                    <div class="dropdown-menu shadow bg-dark dropdown-menu-end animated--grow-in">
-                                    <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> Perfil</a>                                    
-                                    <div class="dropdown-divider"></div><a class="dropdown-item" href="../"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> Salir</a>
+                                    <div class="dropdown-menu shadow bg-warning dropdown-menu-end animated--grow-in">
+                                    <a class="dropdown-item text-dark" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw me-2 "></i> Perfil</a>                                    
+                                    <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item text-dark" href="../"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 "></i>
+                                         Salir</a>
                                     </div>
                                 </div>
                             </li>

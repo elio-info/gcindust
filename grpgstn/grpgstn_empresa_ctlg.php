@@ -104,9 +104,9 @@
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="../grpgstn/fncns_empresa.js"></script>
+  <script src="../js/fncns_empresa.js"></script>
   <script>
-        setMenu('admn',3);
+        setMenu('super',3);
         fillTable_Empresa('tableCardHead') //llenar datos  deList               
     </script>
 </body>

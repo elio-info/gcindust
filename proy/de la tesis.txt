@@ -1,0 +1,2 @@
+Proyecto:
+    - en el listado:propuesto [aprueba|deniega],aprobado[ir a trabjar con el],denegado[solo ver el estado]

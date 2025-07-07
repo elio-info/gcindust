@@ -81,10 +81,10 @@
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="./fncns_dptoentidad.js"></script>
+  <script src="../js/fncns_dptoentidad.js"></script>
 
   <script>
-    setMenu('admn',2);
+    setMenu('super',2);
     fillTable_Departamento('tableCardHead') //llenar datos  deList               
     </script>
 </body>

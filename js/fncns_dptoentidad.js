@@ -1,5 +1,5 @@
 
-let url_de='catalogo_dptoentidad.php'
+let url_de='../conexiones/catalogo_dptoentidad.php'
 
 /**
  * The function `getAllDataFromTable_DepartamentoEntd` asynchronously retrieves all data from a table

@@ -1,5 +1,5 @@
 
-let url_emp='catalogo_empresa.php'
+let url_emp='../conexiones/catalogo_empresa.php'
 
 /**
  * The function `getAllDataFromTable_Empresa` asynchronously retrieves all data from a table

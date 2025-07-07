@@ -24,7 +24,11 @@ async function getDataFromTablePry(operacion='listar',id_pry='') {
 const fillTable_Proyecto = async (paramsTableTrName) =>{
     //
     var datapry= (await getDataFromTablePry()).data;     
-    console.log(datapry);  
+    console.log(datapry); 
+    
+    datapry.map(val =>{
+        val['hacer']={est:val.estado_proyecto,id:val.id_proyecto};
+    })
    
    if ($('#'+paramsTableTrName+'_wrapper')[0]) {
         // alert('cojelo');
@@ -40,11 +44,24 @@ const fillTable_Proyecto = async (paramsTableTrName) =>{
             { title: 'Duracion ',data:'tiempo_estimado_proyecto'}, 
             { title: 'Estado',data:'nombre_estado_proyecto'},
             { title: 'Acciones',
-                data:'id_proyecto',
+                data:'hacer',
                 render:function (data) {
-                    var botones=`
-         <button class="btn btn-dark" onclick="preEditarPry(${data})">Editar</button>
-         <button class="btn btn-danger"  onclick="preEliminarPry(${data})">Eliminar</button>`              
+                    var botones=``;
+                    switch (parseInt(data.est)) {
+                        case 1:
+                            botones=`
+                                <button class="btn btn-success" onclick="preAprobarPry(${data.id})">Aprobar</button>
+                                <button class="btn btn-danger"  onclick="preCancelarPry(${data.id})">Cancelar</button>`  
+                            break;
+                        case 3:
+                            botones=`
+                                <button class="btn btn-warning" onclick="preControlarPry(${data.id})">Controlar</button>`  
+                            break;
+                        default:
+
+                            break;
+                    }
+                                
           return botones;
                 }
         }
@@ -140,7 +157,7 @@ const preEliminarPry= async (id_proyecto) => {
 
     if (elto['status']) {
         mostrarMensaje('mensajesDiv','success','Eliminado.');
-        fillTablePry('tableCardHead');         
+        fillTable_Proyecto('tableCardHead');         
     }
     
 }
@@ -174,3 +191,25 @@ const preEditarPry= async (paramsId) => {
     pryForm_onPage['pryForm_nombre'].focus();
 }
 
+const preAprobarPry= async (id_proyecto) => {
+    let st2_pry=new FormData();
+    st2_pry.append('tipo_operacion','upd_state');
+    st2_pry.append('id',id_proyecto);
+    st2_pry.append('estado',3);
+    let elto = await submitForm(st2_pry,url_pry,'proy_apro');
+    if (elto['status']) {
+        mostrarMensaje('mensajesDiv','success','Aprobado.');
+        fillTable_Proyecto('tableCardHead');         
+    }    
+}
+const preCancelarPry= async (id_proyecto) => {
+    let st2_pry=new FormData();
+    st2_pry.append('tipo_operacion','upd_state');
+    st2_pry.append('id',id_proyecto);
+    st2_pry.append('estado',2);
+    let elto = await submitForm(st2_pry,url_pry,'proy_apro');
+    if (elto['status']) {
+        mostrarMensaje('mensajesDiv','success','Cancelado.');
+        fillTable_Proyecto('tableCardHead');         
+    }    
+}

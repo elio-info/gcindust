@@ -11,21 +11,49 @@
                                         <div id="mensajesDiv" class="error-text"></div>
                                         
                                             <div class="card-header py-2" id="cabezaScc">
-                                                Agregar Grado Cientifico
+                                                Agregar Investigador
                                             </div>
                                             <div class="card-body">
-                                                <form id="gcForm" name="gcForm"method="POST" autocomplete="off">
+                                                <form id="persForm" name="persForm" method="POST" autocomplete="off">
                                                     <input type="hidden" name="tipo_operacion" value="guardar">
-                                                    <input type="hidden" name="gcForm_id" >
-                                                    
+                                                    <input type="hidden" name="persForm_cargo" value="2">
                                                     <div class="name-details">
                                                         <div class="field input">
-                                                            <label>Nombre del Grado Cientifico</label>
-                                                            <input type="text" name="gcForm_nombre" placeholder="Nombre" required>
+                                                            <label>Carnet de Identidad de la Persona</label>
+                                                            <input type="text" name="persForm_id" placeholder="Nombre" required>
+                                                        </div>          
+                                                    </div> 
+                                                    <div class="resp-details">
+                                                        <div class="field input">
+                                                            <label>Nombre del Investigador</label>
+                                                            <input type="text" name="persForm_nombre" placeholder="Nombre" required>
+                                                        </div>
+                                                        <div class="field input">
+                                                            <label>Apellidos de la Persona</label>
+                                                            <input type="text" name="persForm_apll" placeholder="Apellidos" required>
+                                                        </div>         
+                                                    </div>        
+                                                     <div class="correo-details">
+                                                        <div class="field input">
+                                                            <label>Departamento </label>
+                                                            <select name="persForm_dpto" id="persForm_dpto"></select>
+                                                        </div>          
+                                                    </div>
+                                                    <div class="dcc-details">
+                                                        <div class="field input">
+                                                            <label>Usuario en Sistema</label>
+                                                            <input type="text" name="persForm_uss" placeholder="Usuario" required>
+                                                        </div>          
+                                                    </div> 
+                                                    <div class="cell-details">
+                                                        <div class="field input">
+                                                            <label>Clave de Acceso</label>
+                                                            <input type="password" name="persForm_clv" placeholder="######" >
                                                         </div>          
                                                     </div>        
+                                                    
                                                     <div class="field button">
-                                                        <input id="submit" type="submit" name="submit" value="Agregar">
+                                                        <input id="submitBtn" type="submit" name="submitBtn" value="Agregar">
                                                     </div>
                                                 </form>
                                             </div>                                                
@@ -36,7 +64,7 @@
                         </div>
 
                     </div>
-                    <div id="listGC" class="row py-2">
+                    <div id="listde" class="row py-2">
                             <div class="d-flex flex-column" id="content-wrapper">
                                 <div id="content">
                                     <div class="container-fluid">
@@ -47,7 +75,7 @@
                                                 <div class="card-header py-3">
                                                     <div class="row justify-content-between">
                                                         <div class="col col-5" >
-                                                                <p class=" text-primary m-0 fw-bold">Listado de Grados Cientificos</p>                                               
+                                                                <h3 class=" text-primary m-0 fw-bold">Listado de Investigadores</h3>                                               
                                                         </div>
                                                         <div class="col col-3">
                                                             <button type="button" class="btn btn-dark" onclick="AddInfo();">Adicionar</button>     
@@ -64,7 +92,7 @@
                                                     </div>                                        
                                                 </div>                            
                                             </div>                                    
-                                        </div>    <!-- fin tabla de gc -->
+                                        </div>    <!-- fin tabla de de -->
                                     </div>
                                 </div>
                                 </div>
@@ -72,23 +100,21 @@
                         </div>
                 </div>
             </div>
-    
+    </div>
     
  <!-- fin ya el div.wrapper esta finalizado-->
-       </div>
-    </div>
- </div>  
- 
+</div>
   <script src="../js/jquery-3.7.1.js"></script>  
   <script src="../js/bs-init.js"></script>
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="../js/fncns_grados100tfk.js"></script>
-
+  <script src="../js/fncns_dptoentidad.js"></script>
+  <script src="../js/fncns_persona.js"></script>
   <script>
-    setMenu('super',3)
-    fillTable_G100('tableCardHead') //llenar datos  GCList      
+        setMenu('super',4);
+        fillSelec_Departamento('persForm_dpto');
+        fillTable_Persona('tableCardHead',2) //llenar datos  deList               
     </script>
 </body>
 
