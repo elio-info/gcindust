@@ -115,8 +115,8 @@
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="./fncns_empresa.js"></script>  
-  <script src="./fncns_proyct.js"></script>
+  <script src="../js/fncns_empresa.js"></script>  
+  <script src="../js/fncns_proyct.js"></script>
   <script>
     setMenu('exprt',2);
     fillSelec_Empresa('pryForm_emp');

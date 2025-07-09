@@ -1,3 +1,6 @@
+<?php session_start();
+session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,14 +28,15 @@
 <div class="container_my">
 	<div class="screen">
 		<div class="screen__content">
-			<form class="login">
+			<form class="login" action="./conexiones/catalogo_persona.php" method="post">
+				 <input type="hidden" name="tipo_operacion" value="entrar">
 				<div class="login__field">
 					<i class="login__icon fas fa-user"></i>
-					<input type="text" class="login__input" placeholder="Usuario">
+					<input type="text" class="login__input" placeholder="Usuario" id="uss" name="uss">
 				</div>
 				<div class="login__field">
 					<i class="login__icon fas fa-lock"></i>
-					<input type="password" class="login__input" placeholder="Clave">
+					<input id="pss" name="pss" type="password" class="login__input" placeholder="Clave">
 				</div>
 				<button class="button login__submit">
 					<span class="button__text">Iniciar en el sistema</span>

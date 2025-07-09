@@ -118,13 +118,13 @@ se pone en espera de respuesta
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="../grpgstn/fncns_grados100tfk.js"></script> 
-  <script src="../grpgstn/fncns_proyct.js"></script> 
-  <script src="./fncns_xprts.js"></script>
+  <script src="../js/fncns_grados100tfk.js"></script> 
+  <script src="../js/fncns_proyct.js"></script> 
+  <script src="../js/fncns_xprts.js"></script>
   <script>
     setMenu('exprt',1);
     Prepare_Quest();
-    fillSelec_G100(0,'enespForm_cargoactual_clf');
+    fillSelec_G100(1,'enespForm_cargoactual_clf');
     fillTable_Proyecto('tableCardHead') //llenar datos  deList               
     </script>
 </body>

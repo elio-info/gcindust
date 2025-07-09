@@ -12,7 +12,7 @@ let url_pry='../conexiones/catalogo_proyct.php'
 async function getDataFromTablePry(operacion='listar',id_pry='') {   
     const datoso = new FormData();
     datoso.append("tipo_operacion",operacion) ; 
-    datoso.append("pryForm_id",id_pry) ;
+    datoso.append("pryForm_id",id_pry) ;    
     return await submitForm(datoso,url_pry,'proyecto',true) ;     
     }  
 
@@ -21,13 +21,13 @@ async function getDataFromTablePry(operacion='listar',id_pry='') {
  * para pintar tablas
  * @param {Object} paramsTableTrName id for the objet <table> to create the list
  */
-const fillTable_Proyecto = async (paramsTableTrName) =>{
+const fillTable_Proyecto = async (paramsTableTrName,responsable_proyecto) =>{
     //
-    var datapry= (await getDataFromTablePry()).data;     
+    var datapry= (await getDataFromTablePry('buscarPI',responsable_proyecto)).data;     
     console.log(datapry); 
     
     datapry.map(val =>{
-        val['hacer']={est:val.estado_proyecto,id:val.id_proyecto};
+        val['hacer']={est:val.id_estado_proyecto,id:val.id_proyecto,prs:val.responsable_proyecto};
     })
    
    if ($('#'+paramsTableTrName+'_wrapper')[0]) {
@@ -37,7 +37,7 @@ const fillTable_Proyecto = async (paramsTableTrName) =>{
     $('#'+paramsTableTrName).DataTable({
         columns:[
             { title: 'Nombre Proyecto',data:'nombre_proyecto'}, 
-            { title: 'Responsable ',data:'nombre_responsable_proyecto'}, 
+            // { title: 'Responsable ',data:'nombre_responsable_proyecto'}, 
             { title: 'Empresa ',data:'nombre_empresa'}, 
             { title: 'Solicitado ',data:'dia_solicitud_proyecto'}, 
             { title: 'Presupuesto',data:'presupuesto_proyecto'},
@@ -50,12 +50,12 @@ const fillTable_Proyecto = async (paramsTableTrName) =>{
                     switch (parseInt(data.est)) {
                         case 1:
                             botones=`
-                                <button class="btn btn-success" onclick="preAprobarPry(${data.id})">Aprobar</button>
-                                <button class="btn btn-danger"  onclick="preCancelarPry(${data.id})">Cancelar</button>`  
+                                <button class="btn btn-success" onclick="preAprobarPry(${data.id},${data.prs})">Aprobar</button>
+                                <button class="btn btn-danger"  onclick="preCancelarPry(${data.id},${data.prs})">Cancelar</button>`  
                             break;
                         case 3:
                             botones=`
-                                <button class="btn btn-warning" onclick="preControlarPry(${data.id})">Controlar</button>`  
+                                <button class="btn btn-warning" onclick="preControlarPry(${data.id},'${data.prs}')">Controlar</button>`  
                             break;
                         default:
 
@@ -161,7 +161,6 @@ const preEliminarPry= async (id_proyecto) => {
     }
     
 }
-
 /**
  * The function `preEditarEmp` is an asynchronous function that retrieves data from a table, updates
  * form fields with the retrieved data, and sets focus on a specific field.
@@ -190,8 +189,7 @@ const preEditarPry= async (paramsId) => {
     // set foco
     pryForm_onPage['pryForm_nombre'].focus();
 }
-
-const preAprobarPry= async (id_proyecto) => {
+const preAprobarPry= async (id_proyecto,resp) => {
     let st2_pry=new FormData();
     st2_pry.append('tipo_operacion','upd_state');
     st2_pry.append('id',id_proyecto);
@@ -199,10 +197,10 @@ const preAprobarPry= async (id_proyecto) => {
     let elto = await submitForm(st2_pry,url_pry,'proy_apro');
     if (elto['status']) {
         mostrarMensaje('mensajesDiv','success','Aprobado.');
-        fillTable_Proyecto('tableCardHead');         
+        fillTable_Proyecto('tableCardHead',resp);         
     }    
 }
-const preCancelarPry= async (id_proyecto) => {
+const preCancelarPry= async (id_proyecto,resp) => {
     let st2_pry=new FormData();
     st2_pry.append('tipo_operacion','upd_state');
     st2_pry.append('id',id_proyecto);
@@ -210,6 +208,179 @@ const preCancelarPry= async (id_proyecto) => {
     let elto = await submitForm(st2_pry,url_pry,'proy_apro');
     if (elto['status']) {
         mostrarMensaje('mensajesDiv','success','Cancelado.');
-        fillTable_Proyecto('tableCardHead');         
+        fillTable_Proyecto('tableCardHead',resp);         
     }    
 }
+const preControlarPry= async (id_proyecto,nombre_proyecto) => {
+    let st2_pry=document['goto_pry'];
+    st2_pry.action='grpgstn_proyct_pry.php';
+    st2_pry['id_pry'].value=id_proyecto;
+    st2_pry['nm_pry'].value=nombre_proyecto;
+    st2_pry.submit();
+        
+}
+// ================== grupo  =========================
+async function getDataFromTable_GrpsPry(operacion='lstr_gp',id_pry='') {   
+    const datoso = new FormData();
+    datoso.append("tipo_operacion",operacion) ; 
+    datoso.append("pryForm_id",id_pry) ;
+    return await submitForm(datoso,url_pry,'grp_proyecto',true) ;     
+    }  
+async function updateTable_GrpsPry(operacion,id_grp,stt) {   
+    const datoso = new FormData();
+    datoso.append("tipo_operacion",operacion) ; 
+    datoso.append("id_grp",id_grp) ;
+    datoso.append("stt",stt) ;
+    return await submitForm(datoso,url_pry,'grp_proyecto g'+id_grp,true) ;     
+    }  
+
+let grp_proyct=document.getElementById('prygrpFrm');
+
+
+async function fillTable_GrpsPry(params,pry) {
+    let data=(await getDataFromTable_GrpsPry('lstr_gp',pry)).data
+    let lst=document.getElementById(params);
+    lst.innerHTML=``;
+    if (data.length>0) {
+        data.map((val)=>{//
+          lst.innerHTML +=`
+          <div class="row">
+        <h3>  Nombre del Grupo : ${val.nombre_grupo} </h3>`;
+        switch (parseInt (val.estado)) {
+            case 0:
+                lst.innerHTML += `<a href='#' onclick="llenarPosibles_Expertos('posiblesExpertos',${val.id_proyecto},${val.id_grupo},'${val.nombre_grupo}')"> Llenar con posibles candidatos </a> 
+          `;
+                break;        
+            case 1:
+                 lst.innerHTML += `<a href='#' onclick="llenar_Expertos('posiblesExpertos',${val.id_proyecto},${val.id_grupo},'${val.nombre_grupo}')"> Aceptar candidatos</a>
+          `;
+                break;
+        }
+    lst.innerHTML +=` </div>`;
+         
+        })
+    } else {
+       lst.innerHTML=`No tiene grupos` ;
+    }
+}
+grp_proyct.addEventListener('submit', async (e)=> {
+    e.preventDefault();
+    let grp_nm= new FormData (grp_proyct);
+    // grp_nm.append('tipo_operacion', $('#prygrpFrm_nombre').val());    
+    // grp_nm.append('nombre', $('#prygrpFrm_nombre').val());
+    // grp_nm.append('id_pry', $('#id_pry').val());
+    let grps= await submitForm(grp_nm ,url_pry,'add_grp');
+    console.log(grps);
+     fillTable_GrpsPry('list_grpsPry',$('#id_pry').val())
+}
+)
+/**
+ * llenar con los posibles Expertos
+ * @param {*} lugar 
+ * @param {*} id_p 
+ * @param {*} id_g 
+ * @param {*} n_g 
+ */
+async function llenarPosibles_Expertos(lugar,id_p,id_g,n_g) {
+    // mostrar listado de expertos para decidir cual hace la encuesta
+    document.getElementById('id_pry').value=id_p;
+    document.getElementById('id_grp').value=id_g;
+    document.getElementById('tipo_acc').value='posible';
+    $('#'+lugar).show();
+    let exp= (await getAll_Experts()).data;
+    document.getElementById(lugar+'_ltr').innerHTML=n_g;
+    let poner=document.getElementById(lugar+'_ul');
+    poner.innerHTML='';
+    if (exp.length>0) {
+        exp.map((val_exp) =>{       
+       let posbExp=`<li class="list-group-item">
+                    <div class="row g-0 align-items-center">
+                        <div class="col me-2">
+                            <h6 class="mb-0"><strong>${val_exp.nombre_persona } ${val_exp.apellido_persona} </strong></h6>
+                            <span class="text-xs">${val_exp.nombre_departamento}</span>
+                        </div>
+                        <div class="col-auto">
+                            <div class="form-check">
+                            <input name="formchkPosibleExp" class="form-check-input" type="checkbox"  value="${val_exp.id_persona}"/>
+                            </div>
+                        </div>
+                    </div>
+                </li>` 
+        poner.innerHTML+=posbExp;    
+
+       })          
+    }
+    
+}
+
+/**
+ * Llenar con los expertos definitivos
+ * @param {*} lugar 
+ * @param {*} id_p 
+ * @param {*} id_g 
+ * @param {*} n_g 
+ */
+async function llenar_Expertos(lugar,id_p,id_g,n_g) {
+    // mostrar listado de expertos para decidir cual hace la encuesta
+    document.getElementById('id_pry').value=id_p;
+    document.getElementById('id_grp').value=id_g;
+    document.getElementById('tipo_acc').value='aceptados';
+    $('#'+lugar).show();
+    let exp= (await getAll_Experts()).data;
+    document.getElementById(lugar+'_ltr').innerHTML=n_g;
+    let poner=document.getElementById(lugar+'_ul');
+    poner.innerHTML='';
+    if (exp.length>0) {
+        exp.map((val_exp) =>{       
+       let posbExp=`<li class="list-group-item">
+                    <div class="row g-0 align-items-center">
+                        <div class="col me-2">
+                            <h6 class="mb-0"><strong>${val_exp.nombre_persona } ${val_exp.apellido_persona} </strong></h6>
+                            <span class="text-xs">${val_exp.nombre_departamento}</span>
+                        </div>
+                        <div class="col-auto">
+                            <div class="form-check">
+                            <input name="formchkPosibleExp" class="form-check-input" type="checkbox"  value="${val_exp.id_persona}"/>
+                            </div>
+                        </div>
+                    </div>
+                </li>` 
+        poner.innerHTML+=posbExp;    
+
+       })          
+    }
+    
+}
+let grp_proyct_posibleExp=document.getElementById('llenarPosiblesExprt');
+
+grp_proyct_posibleExp.addEventListener('submit', async (e)=> {
+    e.preventDefault();
+    let pr=$('#id_pry').val();
+    let gp=$('#id_grp').val();
+    let ac=$('#tipo_acc').val();
+    let checkboxes=document.getElementsByName('formchkPosibleExp'),
+        v=null,
+        result=null;
+    switch (ac) {
+        case 'posible':            
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {                    
+                    let x=checkboxes[i].value;
+                    result = await set_Expert_Pendiente_Encuesta(pr,gp,x) ;
+                    console.log(result);                    
+                }
+            }
+            v= await updateTable_GrpsPry('upd_grp_stt',gp,1);
+            break;
+    
+        case 'aceptados':
+            result = await set_Expert_Pendiente_Encuesta(pr,gp,x) ;
+                    console.log(result);                    
+            v= await updateTable_GrpsPry('upd_grp_stt',gp,2);
+            break;
+    }
+    
+    //  fillTable_GrpsPry('list_grpsPry',$('#id_pry').val())
+    $('#posiblesExpertos').hide();
+}
+)

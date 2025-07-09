@@ -118,7 +118,7 @@
   <script src="./fncns_empresa.js"></script>  
   <script src="./fncns_proyct.js"></script>
   <script>
-    setMenu('admn',1);
+    setMenu('invst',5);
     fillSelec_Empresa('pryForm_emp');
     fillTable_Proyecto('tableCardHead') //llenar datos  deList               
     </script>

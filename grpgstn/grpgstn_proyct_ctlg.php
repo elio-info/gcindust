@@ -26,7 +26,7 @@
                                                     <div class="name-details">
                                                         <div class="field input">
                                                             <label>Nombre del Responsable - Proyecto</label>
-                                                            <input type="text" name="pryForm_resp" placeholder="Nombre del Responsable" required>
+                                                            <input type="text" name="pryForm_resp" value="<?=$_SESSION['persona']['id'];?>" required>
                                                         </div>    
                                                         <div class="field select">
                                                             <label>Empresa del Responsable - Proyecto</label>
@@ -102,6 +102,12 @@
                 </div>
             </div>
     </div>
+    <div class="d-none">
+        <form name="goto_pry" method="post">
+            <input type="hidden" name="id_pry" id="id_pry">
+            <input type="hidden" name="nm_pry" id="nm_pry">
+        </form>
+    </div>
     
  <!-- fin ya el div.wrapper esta finalizado-->
 </div>
@@ -113,9 +119,9 @@
   <script src="../js/fncns_empresa.js"></script>  
   <script src="../js/fncns_proyct.js"></script>
   <script>
-    setMenu('invst',1);
+    setMenu('invst',1,<?=$_SESSION['persona']['cargo'];?>,'<?=$_SESSION['persona']['nombre'];?>');
     fillSelec_Empresa('pryForm_emp');
-    fillTable_Proyecto('tableCardHead') //llenar datos  deList               
+    fillTable_Proyecto('tableCardHead',<?=$_SESSION['persona']['id'];?>) //llenar datos  deList               
     </script>
 </body>
 

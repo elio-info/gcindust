@@ -3,16 +3,16 @@ const titulosSite=[
         'cargo':'clnt',
         'ruta':'clnt',
         'lnk':[
-            { 'titulo':'Responder Encuesta de Satisfaccion' , lnk:'clnt_testsatif.php'}
+            { 'titulo':'Responder Encuesta de Satisfaccion',hd:'Encuestas' , lnk:'clnt_testsatisf.php'}
         ]
     },
     {
         'cargo':'exprt',
         'ruta':'xprts',
         'lnk':[
-        { 'titulo':'Listado de Cuestionarios' ,lnk:'xprt_qstn.php'  },//para responder
-        { 'titulo':'Listado de Tormentas Ideas-Proyectos' ,lnk:'xprts_gstn_proyct_wideastrm_ctlg.php'  },
-        { 'titulo':'Listado de Parametros Calidad-Proyectos' ,lnk:'xprt_qstn_wideas.php'  },
+        { 'titulo':'Listado de Cuestionarios',hd:'Cuestionarios' ,lnk:'xprt_qstn.php'  },//para responder
+        { 'titulo':'Listado de Tormentas Ideas-Proyectos',hd:'Tormentas' ,lnk:'xprts_gstn_proyct_wideastrm_ctlg.php'  },
+        { 'titulo':'Listado de Parametros Calidad-Proyectos',hd:'Calidad' ,lnk:'xprt_qstn_wideas.php'  },
       
         ],
     },
@@ -20,11 +20,11 @@ const titulosSite=[
         'cargo':'invst',
         'ruta':'grpgstn',
         'lnk':[
-        { 'titulo':'Gestionar Proyectos',lnk:'grpgstn_proyct_ctlg.php'  },//mis proyectos
-        { 'titulo':'Gestionar Expertos y Clientes',lnk:'grpgstn_persona_ctlg.php'  },//crear xprt y clnts
-        { 'titulo':'Controlar Expertos-Proyectos',lnk:'grpgstn_proyct_xp_ctlg.php'  },
-        { 'titulo':'Gestionar Tormentas-Proyectos',lnk:'grpgstn_proyct_wideastrm_ctlg.php'  },
-        { 'titulo':'Gestionar Listad Chequeo-Proyectos',lnk:'grpgstn_proyct_chcklst_ctlg.php'  },
+        { 'titulo':'Gestionar Proyectos',hd:'Proyectos',lnk:'grpgstn_proyct_ctlg.php'  },//mis proyectos
+        { 'titulo':'Gestionar Expertos y Clientes',hd:'Personal',lnk:'grpgstn_persona_ctlg.php'  },//crear xprt y clnts
+        { 'titulo':'Controlar Expertos-Proyectos',hd:'Expertos por Proyctos',lnk:'grpgstn_gstn_proyct_xp_ctlg.php'  },
+        { 'titulo':'Gestionar Tormentas-Proyectos',hd:'Tormentas Proyectos',lnk:'grpgstn_gstn_proyct_wideastrm_ctlg.php'  },
+        { 'titulo':'Gestionar Listad Chequeo-Proyectos',hd:'Chequeo Proyectos',lnk:'grpgstn_gstn_proyct_chcklst_ctlg.php'  },
 
         ],
     },
@@ -32,10 +32,10 @@ const titulosSite=[
         'cargo':'super',
         'ruta':'grpgstn',
         'lnk':[  
-            { 'titulo':'Gestionar Grados Cientificos',lnk:'grpgstn_grados100tfk_ctlg.php'  },
-            { 'titulo':'Gestionar Dpto Entidad',lnk:'grpgstn_dptoentidad_ctlg.php'  },//todos
-            { 'titulo':'Gestionar Empresa',lnk:'grpgstn_empresa_ctlg.php'  },//todos
-            { 'titulo':'Gestionar Investigadores',lnk:'grpgstn_investigadores_ctlg.php'  },//todos
+            { 'titulo':'Gestionar Grados Cientificos',hd:'Grados',lnk:'grpgstn_grados100tfk_ctlg.php'  },
+            { 'titulo':'Gestionar Dpto Entidad',hd:'Dptos',lnk:'grpgstn_dptoentidad_ctlg.php'  },//todos
+            { 'titulo':'Gestionar Empresa',hd:'Empresas',lnk:'grpgstn_empresa_ctlg.php'  },//todos
+            { 'titulo':'Gestionar Investigadores',hd:'Investigadores',lnk:'grpgstn_investigadores_ctlg.php'  },//todos
         ]
 }]
 
@@ -45,10 +45,13 @@ let dataFromSearch=[];// data to store from search result
  * show form to insert or update [ general ]
  * @param {*} params 
  */
-function AddInfo(params='') {
+function AddInfo(params='',frm='') {
     $('#tipo_operacion').val(params!==''?params: 'guardar');
-    $('#FormDiv').show();
+    $('#'+( frm!=''? frm : 'FormDiv')).show();
 
+}
+function Cerrar(params='') {
+    $('#'+params).hide();   
 }
 /**
  * close form of insert or update [ general ]
@@ -118,8 +121,8 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
     var menutitulo=`    
                 <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
                         <div class="container-fluid">
-                            <div id="titl" class=" d-sm-inline">  
-                            <h1>          
+                            
+                            <h2>          
                               `
                 // Titulo a poner
                            // +
@@ -128,33 +131,47 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
                         menutitulo +=   poner.lnk[paramTitle-1].titulo                            
                         
                 // Fin Titulo a poner
-                         menutitulo     +=    `</h1>
-                            </div>
-        
+                         menutitulo     +=    `</h2>
+                            </div>        
                         <ul class="navbar-nav flex-nowrap ms-auto">           
                         <li class="nav-item mx-2">
                                 `;
              let tt=``;                    
             titulosSite.map( (val) =>{
-               
-                tt+=` <li class="nav-item dropdown arrow">
-                                <div class="nav-item dropdown arrow">
-                                <a class="dropdown-toggle nav-link  text-dark" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-                                    <h5 class="d-lg-inline me-2  ">
-                                    ${val.cargo} 
-                                    </h5>                                    
-                                    </a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">`; //hast aqui la cabeza del menu desplegable
+            //    if (paramCharge=='super') {                
+              
+            //     tt+=` <li class="nav-item dropdown arrow">
+            //                     <div class="nav-item dropdown arrow">
+            //                     <a class="dropdown-toggle nav-link  text-dark" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+            //                         <h5 class="d-lg-inline me-2  ">
+            //                         ${val.cargo} 
+            //                         </h5>                                    
+            //                         </a>
+            //                         <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">`; //hast aqui la cabeza del menu desplegable
+            //                        let listaVin=``;
+                                   
+            //                         val.lnk.map((item) =>{
+            //                             listaVin+=` <a class="dropdown-item text-dark" href="${'../' + val.ruta+ '/' +item.lnk}">
+            //                         <i class="fas fa-user fa-sm fa-fw me-2 "></i>${item.titulo}</a>                                    
+            //                         `
+            //                         })
+            //                             tt+= listaVin +`
+            //                         </div>
+            //                     </li>`
+            //      } 
+            //      else
+                 if (paramCharge==val.cargo) {
+                    //es otro
                                    let listaVin=``;
                                    
                                     val.lnk.map((item) =>{
-                                        listaVin+=` <a class="dropdown-item text-dark" href="${'../' + val.ruta+ '/' +item.lnk}">
-                                    <i class="fas fa-user fa-sm fa-fw me-2 "></i>${item.titulo}</a>                                    
-                                    `
+                                        listaVin+=`<li class="nav-item ">
+                                         <a class="nav-link text-dark" href="${'../' + val.ruta+ '/' +item.lnk}">
+                                    <i class="fas fa-user fa-sm fa-fw me-2 "></i>${item.hd}</a>                                    
+                                    </li>`
                                     })
-                                tt+= listaVin +`
-                                </div>
-                            </li>`
+                                     tt+= listaVin 
+               }               
             });
                menutitulo                 +=tt+ 
                 // Fecha a poner

@@ -69,12 +69,50 @@
         break;    
         case 'listar':
             # code...listar todos
-            $persCr = $_POST['persForm_cargo']=!'*'?'':'where rango='.$_POST['persForm_cargo'];
+            $persCr = $_POST['persForm_cargo']=!'*'?'':'where rango'.$_POST['persForm_cargo'];
             $qry = 'SELECT * from vw_persona '.$persCr;           
             // print_r ($qry);
             $rs=$consultaso->findAll_By($qry);            
             echo json_encode($rs);
         break;
+        case 'entrar':
+            # code...            
+            $uss = $_POST['uss'];$pss = $_POST['pss'];
+            $qry = "SELECT * from persona where usuario='$uss' and contrasena='$pss'";           
+            // print_r ($qry);
+             $rs=$consultaso->findAll_By($qry);
+             if($rs['info']!==[]){
+                $user=$rs['info'][0];
+                $_SESSION['persona'] = ['id'=> $user['id_persona'],'nombre'=> $user['nombre_persona'],'cargo'=> $user['rango'],'interaccion_inicio'=>time()];
+                $_SESSION['last_activity'] = 1200;  //180 => 3 minutes ago 
+                switch ($user['rango']){
+                    case '1'://agente
+                        # code...
+                        header('Location: ../grpgstn/grpgstn_grados100tfk_ctlg.php');
+                        break;
+                    case '2'://invest
+                        # code...
+                        header('Location: ../grpgstn/grpgstn_proyct_ctlg.php');
+                        break;
+                    case '3'://experto
+                        # code...
+                        header('Location: ../xprts/xprt_qstn.php');
+                        break;
+                    case '4'://cliente
+                        # code...
+                        header('Location: ../clnt/clnt_testsatisf.php');
+                        break;}                          
+            }
+            else {
+                session_destroy();
+                header('Location: ../'); 
+            }
+            //  print_r ($rs);
+            //  exit;
+             echo json_encode(
+                $rs
+             );
+             break;
     }
     // echo json_encode($consultaso);
 

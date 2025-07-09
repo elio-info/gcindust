@@ -1,15 +1,9 @@
-<?php include_once "../conexiones/header.php"; ?>
+<?php include_once "./conexiones/header.php"; ?>
 <!-- llena ya el div.wrapper esta iniciado-->
- 1' mostrar a mis clientes, las encuestas que no ha respondido Paro.
 
-LISTADO DE ENCUESTAS DE SATISFACCION
+bienvenido <
 
- 2´ mostrar la encuesta que se forma de la bd y guardar.
-
- ENCUESTA ESPECIFICA
- 
- la elimino de la lista que la vea
- <!-- fin ya el div.wrapper esta finalizado-->
+<!-- fin ya el div.wrapper esta finalizado-->
  </div>
 </div>
   <script src="../js/jquery-3.7.1.js"></script>  
@@ -20,7 +14,7 @@ LISTADO DE ENCUESTAS DE SATISFACCION
   <script src="../js/fncns_empresa.js"></script>  
   <script src="../js/fncns_proyct.js"></script>
   <script>
-    setMenu('clnt',1);    
+    setMenu('exprt',3);   
                  
     </script>
 </body>

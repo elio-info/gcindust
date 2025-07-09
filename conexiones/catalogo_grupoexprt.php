@@ -5,16 +5,42 @@
     $consultaso =new dbconexion();    
 
     switch ($tipo_consulta) {
+        // nuevo
+        case 'llenar_lgx':
+            $pry = $_POST['id_p']; 
+            $grp = $_POST['id_g']; 
+            $xp = $_POST['id_x'];            
+            $state = $_POST['stt'];                       
+             $qry="insert into listado_grupo_experto (id_proyecto,id_grupo,id_experto,estado)values($pry,$grp,'$xp',$state)";
+            //  print_r ($qry);
+             $rs=$consultaso->addP($qry);
+            //  print_r ($rs);
+            //  exit;
+             echo json_encode(   $rs );
+            //
+        break;
         case 'buscar':
             # code...
-            $pryId = $_POST['pryForm_id'];
+            $grpId = $_POST['id_grp'];
             $qry = "SELECT * from vw_pry where id_proyecto=$pryId";           
             // print_r ($qry);
              $rs=$consultaso->findAll_By($qry);
             //  print_r ($rs);
             //  exit;
              echo json_encode( $rs );
+        break;   
+        
+        
+        
+        /*
+        case 'lstr_xprt':
+            # code...listar todos
+            echo json_encode(  $consultaso->getAll_OrderBy('vw_grppry','id_proyecto')      );
         break;
+        
+        
+
+
         case 'buscarPI'://proy de Inv
             # code...
             $pryId = $_POST['pryForm_id'];
@@ -25,26 +51,8 @@
             //  exit;
              echo json_encode( $rs );
         break;
-        case 'guardar':
-            $pryN = $_POST['pryForm_nombre']; 
-            $pryR = $_POST['pryForm_resp']; 
-            $pryE = $_POST['pryForm_emp'];            
-            $pryF = $_POST['pryForm_fchsolc']; 
-            $pryD = $_POST['pryForm_dinero'];  
-            $pryT = $_POST['pryForm_tiempo'];          
-             $qry="insert into proyecto (nombre_proyecto,nombre_responsable_proyecto,dia_solicitud_proyecto,presupuesto_proyecto,tiempo_estimado_proyecto,id_empresa,estado_proyecto)values('$pryN','$pryR','$pryF',$pryD,$pryT,$pryE,1)";
-            //  print_r ($qry);
-             $rs=$consultaso->addP($qry);
-            //  print_r ($rs);
-            //  exit;
-             echo json_encode(
-                $rs['status']==1 ? $consultaso->getAll_OrderBy('vw_pry','id_proyecto')
-                :
-                $rs
-             );
-            //
-        break;
-            
+
+         
         case 'update'://bajo a la bd
             $pryId = $_POST['pryForm_id'];
             $pryN = $_POST['pryForm_nombre'];            
@@ -109,22 +117,8 @@
              );
             //
         break;
-        case 'upd_grp_stt':
-            $gpry = $_POST['id_grp']; 
-            $state = $_POST['stt'];
-             $qry="UPDATE grupos_proyecto SET estado=$state WHERE `id_grupo`=$gpry";
-            //  print_r ($qry);
-             $rs=$consultaso->addP($qry);
-            //  print_r ($rs);
-            //  exit;
-             echo json_encode(   $rs    );
-            //
-        break;
         
-        case 'lstr_gp':
-            # code...listar todos
-            echo json_encode(  $consultaso->getAll_OrderBy('vw_grppry','id_proyecto')      );
-        break;
+        */
     }
     // echo json_encode($consultaso);
 
