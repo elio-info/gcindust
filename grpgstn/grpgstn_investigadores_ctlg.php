@@ -114,7 +114,7 @@
   <script>
         setMenu('super',4);
         fillSelec_Departamento('persForm_dpto');
-        fillTable_Persona('tableCardHead','= 2') //llenar datos  deList               
+        fillTable_Persona('tableCardHead',2) //llenar datos  deList               
     </script>
 </body>
 

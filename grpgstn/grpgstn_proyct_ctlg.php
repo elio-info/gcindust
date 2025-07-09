@@ -102,12 +102,6 @@
                 </div>
             </div>
     </div>
-    <div class="d-none">
-        <form name="goto_pry" method="post">
-            <input type="hidden" name="id_pry" id="id_pry">
-            <input type="hidden" name="nm_pry" id="nm_pry">
-        </form>
-    </div>
     
  <!-- fin ya el div.wrapper esta finalizado-->
 </div>

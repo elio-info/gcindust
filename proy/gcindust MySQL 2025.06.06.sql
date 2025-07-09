@@ -61,14 +61,13 @@ CREATE TABLE `Experto` (
 );
 
 CREATE TABLE `Grupo_Experto` (
-  `id_grupo` int PRIMARY KEY auto_increment,
-  `id_proyecto` integer not NULL REFERENCES proyecto(id_proyecto),
+  `id_grupo` int PRIMARY KEY,
+  `id_proyecto` integer NOT NULL,
   `nombre_grupo` varchar(255),
-  `cantidad_expertos` int null ,
-  `proporcion_errores` decimal null,
-  `nivel_confianza` decimal null
-
-)COMMENT 'empieza con datos nulos, despues se llena';
+  `cantidad_expertos` int,
+  `proporcion_errores` decimal,
+  `nivel_confianza` decimal
+);
 
 CREATE TABLE `Listado_Grupo_Experto` (
   `id_proyecto` integer NOT NULL,

@@ -38,7 +38,7 @@ const fillTable_Persona = async (paramsTableTrName,cargo='*') =>{
             { title: 'Identidad ',data:'id_persona'}, 
             { title: 'Departamento ',data:'nombre_departamento'}, 
             // { title: 'Presupuesto',data:'presupuesto_persona'},
-            { title: 'Nivel ',data:'nombre_rango'}, 
+            // { title: 'Duracion ',data:'tiempo_estimado_persona'}, 
             // { title: 'Estado',data:'nombre_estado_persona'},
             { title: 'Acciones',
                 data:'id_persona',

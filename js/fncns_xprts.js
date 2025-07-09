@@ -11,7 +11,3 @@ function Prepare_Quest(params) {
     poner_conocimiento.innerHTML +=cnc;
    }
 }
-
-function linkExprt(id_proyecto,id_grupo){
-    alert('g:'+id_grupo+', p:'+id_proyecto);
-}

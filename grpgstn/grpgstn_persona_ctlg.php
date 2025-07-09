@@ -118,12 +118,12 @@
   <script src="../js/fncns_menu.js"></script>
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../js/my_dataTables.js"></script>
-  <script src="../js/fncns_dptoentidad.js"></script>
-  <script src="../js/fncns_persona.js"></script>
+  <script src="../grpgstn/fncns_dptoentidad.js"></script>
+  <script src="../grpgstn/fncns_persona.js"></script>
   <script>
-        setMenu('invst',3);
+        setMenu('admn',3);
         fillSelec_Departamento('persForm_dpto');
-        fillTable_Persona('tableCardHead','>2') //llenar datos  deList               
+        fillTable_Persona('tableCardHead') //llenar datos  deList               
     </script>
 </body>
 
