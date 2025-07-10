@@ -118,7 +118,7 @@
   <script src="../js/fncns_empresa.js"></script>  
   <script src="../js/fncns_proyct.js"></script>
   <script>
-    setMenu('exprt',2);
+    setMenu('exprt',2,<?=$_SESSION['persona']['cargo'];?>,'<?=$_SESSION['persona']['nombre'];?>');
     fillSelec_Empresa('pryForm_emp');
     fillTable_Proyecto('tableCardHead') //llenar datos  deList               
     </script>

@@ -14,15 +14,27 @@
              $qry="insert into listado_grupo_experto (id_proyecto,id_grupo,id_experto,estado)values($pry,$grp,'$xp',$state)";
             //  print_r ($qry);
              $rs=$consultaso->addP($qry);
+            $qry_enc=" INSERT INTO encuesta_experto(id_experto,id_grupo) values('$xp',$grp)";
+             $rsq=   $consultaso->addP($qry_enc);
             //  print_r ($rs);
             //  exit;
-             echo json_encode(   $rs );
+             echo json_encode(   [$rs,$rsq] );
             //
         break;
         case 'buscar':
             # code...
-            $grpId = $_POST['id_grp'];
-            $qry = "SELECT * from vw_pry where id_proyecto=$pryId";           
+            $grpId = $_POST['id_g'];
+            $qry = "SELECT * from vw_lgx_persona_enc where id_grupo=$grpId";           
+            // print_r ($qry);
+             $rs=$consultaso->findAll_By($qry);
+            //  print_r ($rs);
+            //  exit;
+             echo json_encode( $rs );
+        break;   
+        case 'buscarEncExp':
+            # code...
+            $expId = $_POST['id'];
+            $qry = "SELECT * from vw_lgx_persona_enc where id_experto='$expId'";           
             // print_r ($qry);
              $rs=$consultaso->findAll_By($qry);
             //  print_r ($rs);
@@ -30,8 +42,22 @@
              echo json_encode( $rs );
         break;   
         
-        
-        
+        // encuesta xprt
+        case 'add_enc_exp':
+            $gpryN = $_POST['prygrpFrm_nombre']; 
+            $gpryP = $_POST['id_pry'];
+             $qry="insert into grupos_proyecto (nombre_grupo,id_proyecto)values('$gpryN',$gpryP)";
+            //  print_r ($qry);
+             $rs=$consultaso->addP($qry);
+            //  print_r ($rs);
+            //  exit;
+             echo json_encode(
+                $rs['status']==1 ? $consultaso->getAll_OrderBy('grupos_proyecto','id_proyecto')
+                :
+                $rs
+             );
+            //
+        break;
         /*
         case 'lstr_xprt':
             # code...listar todos
@@ -101,22 +127,7 @@
             # code...listar todos
             echo json_encode(  $consultaso->getAll_OrderBy('vw_pry','id_proyecto')      );
         break;
-        // grupos
-        case 'add_grp_nm':
-            $gpryN = $_POST['prygrpFrm_nombre']; 
-            $gpryP = $_POST['id_pry'];
-             $qry="insert into grupos_proyecto (nombre_grupo,id_proyecto)values('$gpryN',$gpryP)";
-            //  print_r ($qry);
-             $rs=$consultaso->addP($qry);
-            //  print_r ($rs);
-            //  exit;
-             echo json_encode(
-                $rs['status']==1 ? $consultaso->getAll_OrderBy('grupos_proyecto','id_proyecto')
-                :
-                $rs
-             );
-            //
-        break;
+        
         
         */
     }

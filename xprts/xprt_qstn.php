@@ -1,27 +1,49 @@
 <?php include_once "../conexiones/header.php"; ?>
 <!-- llena ya el div.wrapper esta iniciado-->
-se muestra el listado de cuestionarios pendientes a responder del experto que se logueo
+<!-- se muestra el listado de cuestionarios pendientes a responder del experto que se logueo
 
 LISTA DE cuestionarios
 
 mostrar cuestionario seleccionado
 
 <img src="../proy/xprts qstn.jpg" alt="" srcset="">
-se pone en espera de respuesta
-<div class="container_my">
+se pone en espera de respuesta -->
+<div class="row">
+    <div class="card col-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3" style="display: inline-block;position: relative;">
+                <div class="row">
+                    <div class="col col-8">
+                        <h6 class="text-primary fw-bold m-0">Encuestas</h6>
+                    </div>            
+                </div>
+                <ul id="listaEncuestas" class="list-group list-group-flush">        
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="enq" class="container_my" style="display: none;">
     <div class="screen_base" style=" height: 50em;width: 60em;	">
         <div class="card shadow mb-5">
             <div class="card-header py-3">
+                <h3 id="letrero"></h3>
                 <p class="text-primary m-0 fw-bold">Encuesta a Especialista</p>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 col-xl-4">
-                        <form>
+                        <form id="encuesta" method="post">
+                            <input type="hidden" name="tipo_acc" id="tipo_acc" value="add_enc_exp">
+                            <input type="hidden" name="id_pry" id="id_pry">
+                            <input type="hidden" name="id_grp" id="id_grp">
+                            <input type="hidden" name="id_exp" id="<?=$_SESSION['persona']['id'];?>">
+                            
                             <div class="mb-3"><label class="form-label" for="enespForm_cargoactual"><strong>Cargo Actual</strong></label><input id="enespForm_cargoactual" class="form-control" type="text" style="height: 37px;width: 250px;" /></div>
                             <div class="mb-3"><label class="form-label" for="enespForm_cargoactual-1"><strong>Años de experiencia en el cargo</strong></label><input id="enespForm_cargoactual_tiempo" class="form-control" type="number" style="height: 37px;width: 80px;" min="1" value="1" /></div>
                                 <label class="form-label" for="enespForm_cargoactual"><strong>Calificación profesional</strong></label>
-                                <select id="enespForm_cargoactual_clf" class="form-select">                                
+                                <select id="enespForm_cargoactual_clf" name="enespForm_cargoactual_clf" class="form-select">                                
                                 </select>
                             <div class="mb-3"></div>
                         </form>
@@ -32,6 +54,17 @@ se pone en espera de respuesta
                                 <div class="row">
                                     <div class="col"><label class="col-form-label"><span style="color: rgb(51, 51, 51);">1. Marque  el valor que se corresponde con el grado de conocimientos que usted posee en la materia presentada. Considere que la escala que le presentamos es ascendente, es decir, el conocimiento sobre el tema referido va creciendo desde 0 hasta 10.</span></label></div>
                                 </div>
+                                <fieldset>
+   
+                                <div id="valores" class="custom-control custom-radio custom-control-inline">
+                                    <input id="customRadioInline1" class="custom-control-input" type="radio" name="customRadioInline" />
+                                    <label class="custom-control-label" for="customRadioInline1">
+                                        1</label>
+                                
+                                    <input id="customRadioInline2" class="custom-control-input" type="radio" name="customRadioInline" />
+                                <label class="custom-control-label" for="customRadioInline2">2</label>
+                            </div>
+                                </fieldset>
                             </div>
                         </div>
                         <div class="row">
@@ -122,10 +155,9 @@ se pone en espera de respuesta
   <script src="../js/fncns_proyct.js"></script> 
   <script src="../js/fncns_xprts.js"></script>
   <script>
-    setMenu('exprt',1);
-    Prepare_Quest();
-    fillSelec_G100(1,'enespForm_cargoactual_clf');
-    fillTable_Proyecto('tableCardHead') //llenar datos  deList               
+    setMenu('exprt',1,<?=$_SESSION['persona']['cargo'];?>,'<?=$_SESSION['persona']['nombre'];?>');    
+    fillSelec_G100(0,'enespForm_cargoactual_clf');
+    fillTable_EncuestaExp('listaEncuestas',<?=$_SESSION['persona']['id'];?>) //llenar datos  deList               
     </script>
 </body>
 

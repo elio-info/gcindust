@@ -16,7 +16,7 @@ se pone en espera de respuesta
   <script src="../js/fncns_empresa.js"></script>  
   <script src="../js/fncns_proyct.js"></script>
   <script>
-    setMenu('exprt',3);                    
+    setMenu('exprt',3,<?=$_SESSION['persona']['cargo'];?>,'<?=$_SESSION['persona']['nombre'];?>');                    
     </script>
 </body>
 

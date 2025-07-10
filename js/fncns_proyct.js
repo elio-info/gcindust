@@ -326,21 +326,27 @@ async function llenar_Expertos(lugar,id_p,id_g,n_g) {
     document.getElementById('id_grp').value=id_g;
     document.getElementById('tipo_acc').value='aceptados';
     $('#'+lugar).show();
-    let exp= (await getAll_Experts()).data;
+    let exp= (await getAll_Pendientes_Encuesta(id_g)).data.info;
     document.getElementById(lugar+'_ltr').innerHTML=n_g;
     let poner=document.getElementById(lugar+'_ul');
     poner.innerHTML='';
     if (exp.length>0) {
-        exp.map((val_exp) =>{       
+        exp.map((val_exp) =>{ 
+        let letrero=''          ;
+        if (val_exp.clasificacion_profesional==null) {
+            letrero='No la ha realizado aun';
+        } else {
+            letrero='La ha realizado aun';
+        }
        let posbExp=`<li class="list-group-item">
                     <div class="row g-0 align-items-center">
                         <div class="col me-2">
-                            <h6 class="mb-0"><strong>${val_exp.nombre_persona } ${val_exp.apellido_persona} </strong></h6>
-                            <span class="text-xs">${val_exp.nombre_departamento}</span>
+                            <h6 class="mb-0"><strong>${val_exp.nombre_persona } </strong></h6>
+                            <span class="text-xs">${letrero}</span>
                         </div>
                         <div class="col-auto">
                             <div class="form-check">
-                            <input name="formchkPosibleExp" class="form-check-input" type="checkbox"  value="${val_exp.id_persona}"/>
+                            <input name="formchkPosibleExp" class="form-check-input" type="checkbox"  value="${val_exp.id_experto}"/>
                             </div>
                         </div>
                     </div>
@@ -380,7 +386,7 @@ grp_proyct_posibleExp.addEventListener('submit', async (e)=> {
             break;
     }
     
-    //  fillTable_GrpsPry('list_grpsPry',$('#id_pry').val())
+    fillTable_GrpsPry('list_grpsPry',pr);
     $('#posiblesExpertos').hide();
 }
 )
