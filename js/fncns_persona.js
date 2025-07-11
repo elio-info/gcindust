@@ -45,7 +45,7 @@ const fillTable_Persona = async (paramsTableTrName,cargo='*') =>{
                 render:function (data) {
                     var botones=`
          <button class="btn btn-dark" onclick="preEditarPers('${data}')">Editar</button>
-         <button class="btn btn-danger"  onclick="preEliminarPers('${data}')">Eliminar</button>`              
+         <button class="btn btn-danger"  onclick="preEliminarPers('${data}','=2')">Eliminar</button>`              
           return botones;
                 }
         }
@@ -133,7 +133,7 @@ persForm_onPage.addEventListener('submit' , async (e) =>{
  * the ID of the scientific degree that you want to delete. This function prepares a form data object
  * with the operation type set to "eliminar" (delete) and the ID of the scientific degree to be deleted
  */
-const preEliminarPers= async (id_persona) => {
+const preEliminarPers= async (id_persona,cargo) => {
     let delFrm=new FormData();
     delFrm.append('tipo_operacion','eliminar');
     delFrm.append('id',id_persona);
@@ -141,7 +141,7 @@ const preEliminarPers= async (id_persona) => {
 
     if (elto['status']) {
         mostrarMensaje('mensajesDiv','success','Eliminado.');
-        fillTablePers('tableCardHead');         
+        fillTable_Persona('tableCardHead',cargo);         
     }
     
 }

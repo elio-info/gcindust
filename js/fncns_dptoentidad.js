@@ -73,7 +73,7 @@ const fillSelec_Departamento = async (tab_datos,dataSelc=-1) =>{
                let opt_datos = document.createElement('option')
                opt_datos.value=item.id_departamento;
                opt_datos.text=item.nombre_departamento;                       
-               if (item.id_area==dataSelc) {
+               if (item.id_departamento==dataSelc) {
                 opt_datos.selected=true
                }
            doc_tab_datos.appendChild(opt_datos)

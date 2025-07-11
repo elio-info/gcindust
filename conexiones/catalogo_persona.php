@@ -16,7 +16,7 @@
              echo json_encode( $rs );
         break;
         case 'guardar':
-            print_r($_POST);
+            // print_r($_POST);
             $persId = $_POST['persForm_id']; 
             $persN = $_POST['persForm_nombre']; 
             $persA = $_POST['persForm_apll']; 
@@ -28,7 +28,7 @@
             //  print_r ($qry);
              $rs=$consultaso->addP($qry);
             //  print_r ($rs);
-             exit;
+            //  exit;
              echo json_encode(
                 $rs['status']==1 ? $consultaso->getAll_OrderBy('persona','id_persona')
                 :
@@ -40,11 +40,12 @@
         case 'update'://bajo a la bd
             $persId = $_POST['persForm_id'];
             $persN = $_POST['persForm_nombre'];            
-            $persR = $_POST['persForm_responsable']; 
-            $persD = $_POST['persForm_dcc'];            
-            $persT = $_POST['persForm_cell']; 
-            $persC = $_POST['persForm_email'];            
-            $qry="UPDATE persona SET nombre_persona ='$persN',responsable_persona='$persR',direccion_persona='$persD',telefono_persona='$persT',email_persona='$persC' WHERE id_persona ='$persId' ";
+            $persR = $_POST['persForm_apll']; 
+            $persD = $_POST['persForm_uss'];            
+            $persT = $_POST['persForm_clv']; 
+            $persC = $_POST['persForm_dpto'];
+            $persCr = $_POST['persForm_cargo'];           
+            $qry="UPDATE persona SET nombre_persona ='$persN',apellido_persona='$persR',departamento_persona=$persC,usuario='$persD',contrasena='$persT' rango=$persCr  WHERE id_persona ='$persId' ";
             //  print_r ($qry);
              $rs=$consultaso->addP($qry);
             //  print_r ($rs);

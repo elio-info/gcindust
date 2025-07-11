@@ -87,7 +87,7 @@
   <script src="../js/fncns_grados100tfk.js"></script>
 
   <script>
-    setMenu('super',3)
+    setMenu('super',1,<?=$_SESSION['persona']['cargo'];?>,'<?=$_SESSION['persona']['nombre'];?>')
     fillTable_G100('tableCardHead') //llenar datos  GCList      
     </script>
 </body>

@@ -40,8 +40,14 @@ const fillTable_Proyecto = async (paramsTableTrName,responsable_proyecto) =>{
             // { title: 'Responsable ',data:'nombre_responsable_proyecto'}, 
             { title: 'Empresa ',data:'nombre_empresa'}, 
             { title: 'Solicitado ',data:'dia_solicitud_proyecto'}, 
-            { title: 'Presupuesto',data:'presupuesto_proyecto'},
-            { title: 'Duracion ',data:'tiempo_estimado_proyecto'}, 
+            { title: 'Presupuesto',data:'presupuesto_proyecto', render:function (data) {
+                var ver=data+' (miles de $)';
+                return ver;
+            }},
+            { title: 'Duracion ',data:'tiempo_estimado_proyecto', render:function (data) {
+                var ver=data+' (meses)';
+                return ver;
+            }}, 
             { title: 'Estado',data:'nombre_estado_proyecto'},
             { title: 'Acciones',
                 data:'hacer',
@@ -220,6 +226,11 @@ const preControlarPry= async (id_proyecto,nombre_proyecto) => {
         
 }
 // ================== grupo  =========================
+function showDiv_AddGrupos(params) {
+    $('#listagruposDiv').show();
+    $('#add_grpsPryDiv').hide();
+}
+
 async function getDataFromTable_GrpsPry(operacion='lstr_gp',id_pry='') {   
     const datoso = new FormData();
     datoso.append("tipo_operacion",operacion) ; 
@@ -265,13 +276,16 @@ async function fillTable_GrpsPry(params,pry) {
 }
 grp_proyct.addEventListener('submit', async (e)=> {
     e.preventDefault();
+    let pry=grp_proyct['id_pry'].value;
     let grp_nm= new FormData (grp_proyct);
     // grp_nm.append('tipo_operacion', $('#prygrpFrm_nombre').val());    
     // grp_nm.append('nombre', $('#prygrpFrm_nombre').val());
     // grp_nm.append('id_pry', $('#id_pry').val());
     let grps= await submitForm(grp_nm ,url_pry,'add_grp');
     console.log(grps);
-     fillTable_GrpsPry('list_grpsPry',$('#id_pry').val())
+    $('#listagruposDiv').hide();
+    $('#add_grpsPryDiv').show();
+     fillTable_GrpsPry('list_grpsPry',pry);
 }
 )
 /**

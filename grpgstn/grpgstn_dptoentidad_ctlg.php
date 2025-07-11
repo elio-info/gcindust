@@ -84,7 +84,7 @@
   <script src="../js/fncns_dptoentidad.js"></script>
 
   <script>
-    setMenu('super',2);
+    setMenu('super',2,<?=$_SESSION['persona']['cargo'];?>,'<?=$_SESSION['persona']['nombre'];?>');
     fillTable_Departamento('tableCardHead') //llenar datos  deList               
     </script>
 </body>

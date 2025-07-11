@@ -16,20 +16,17 @@
                                             <div class="card-body">
                                                 <form id="pryForm" name="pryForm"method="POST" autocomplete="off">
                                                     <input type="hidden" name="tipo_operacion" value="guardar">
-                                                    <input type="hidden" name="pryForm_id" >
+                                                    <input type="hidden" name="pryForm_id" id="pryForm_id">
+                                                    <input type="hidden" name="pryForm_resp" id="pryForm_resp" value="<?=$_SESSION['persona']['id'];?>">
                                                     <div class="name-details">
                                                         <div class="field input">
                                                             <label>Nombre del Proyecto</label>
                                                             <input type="text" name="pryForm_nombre" placeholder="Nombre" required>
                                                         </div>          
                                                     </div> 
-                                                    <div class="name-details">
-                                                        <div class="field input">
-                                                            <label>Nombre del Responsable - Proyecto</label>
-                                                            <input type="text" name="pryForm_resp" value="<?=$_SESSION['persona']['id'];?>" required>
-                                                        </div>    
+                                                    <div class="name-details">                                                            
                                                         <div class="field select">
-                                                            <label>Empresa del Responsable - Proyecto</label>
+                                                            <label>Empresa Responsable del - Proyecto</label>
                                                             <select name="pryForm_emp" id="pryForm_emp" required>
                                                             </select>                                                            
                                                         </div>      
@@ -42,19 +39,24 @@
                                                     </div>        
                                                     <div class="number-details">
                                                         <div class="field number">
-                                                            <label>Presupuesto - Proyecto</label>
+                                                            <label>Presupuesto - Proyecto (miles de Pesos)</label>
                                                             <input type="number" name="pryForm_dinero" >
                                                         </div>          
                                                     </div>        
                                                     <div class="number-details">
                                                         <div class="field number">
-                                                            <label>Tiempo de ejecucion - Proyecto</label>
+                                                            <label>Tiempo de ejecucion - Proyecto (meses)</label>
                                                             <input type="number" name="pryForm_tiempo" >
                                                         </div>          
                                                     </div>        
-                                                    <div class="field button">
-                                                        <input id="submit" type="submit" name="submit" value="Agregar">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                        <input id="submitBtn" type="submit" name="submit" value="Agregar">
                                                     </div>
+                                                        <div class="col">
+                                                    <input id="cancelar" type="button" name="cancelar" value="Cancelar">
+                                                </div>
+                                            </div>
                                                 </form>
                                             </div>                                                
                                         </div>                                             

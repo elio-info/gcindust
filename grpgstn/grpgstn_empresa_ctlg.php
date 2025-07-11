@@ -106,7 +106,7 @@
   <script src="../js/my_dataTables.js"></script>
   <script src="../js/fncns_empresa.js"></script>
   <script>
-        setMenu('super',3);
+        setMenu('super',3,<?=$_SESSION['persona']['cargo'];?>,'<?=$_SESSION['persona']['nombre'];?>');
         fillTable_Empresa('tableCardHead') //llenar datos  deList               
     </script>
 </body>

@@ -11,7 +11,7 @@
                                         <div id="mensajesDiv" class="error-text"></div>
                                         
                                             <div class="card-header py-2" id="cabezaScc">
-                                                Agregar Persona
+                                                Agregar Expertos o Clientes al Proyecto
                                             </div>
                                             <div class="card-body">
                                                 <form id="persForm" name="persForm" method="POST" autocomplete="off">
@@ -20,7 +20,7 @@
                                                     <div class="name-details">
                                                         <div class="field input">
                                                             <label>Carnet de Identidad de la Persona</label>
-                                                            <input type="text" name="persForm_id" placeholder="Nombre" required>
+                                                            <input type="text" name="persForm_id" placeholder="Entrar CI"minlength="11" maxlength="11" pattern="[0-9]{0,11}" required>
                                                         </div>          
                                                     </div> 
                                                     <div class="resp-details">
@@ -41,7 +41,7 @@
                                                     </div>
                                                     <div class="cargo-details">
                                                         <div class="field input">
-                                                            <label>Departamento </label>
+                                                            <label>Responsabilidad </label>
                                                             <select name="persForm_cargo" id="persForm_cargo">
                                                                 <option value="3">Posible Experto</option>
                                                                 <option value="4">Cliente Empresa</option>
@@ -121,7 +121,7 @@
   <script src="../js/fncns_dptoentidad.js"></script>
   <script src="../js/fncns_persona.js"></script>
   <script>
-        setMenu('invst',3);
+        setMenu('invst',2,<?=$_SESSION['persona']['cargo'];?>,'<?=$_SESSION['persona']['nombre'];?>');
         fillSelec_Departamento('persForm_dpto');
         fillTable_Persona('tableCardHead','>2') //llenar datos  deList               
     </script>

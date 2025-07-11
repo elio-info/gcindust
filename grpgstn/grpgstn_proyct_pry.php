@@ -19,7 +19,8 @@
                                 <form id="prygrpFrm">
                                     <input type="hidden" name="tipo_operacion" value="add_grp_nm">
                                     <input type="hidden" name="id_pry" value="<?=$_POST['id_pry']?>">
-                                    <div class="col col-5">
+                                    <div class="row">
+                                        <div class="col col-5">
                                         <label for="prygrpFrm_nombre">Nombre del Grupo</label>
                                         <input type="text" name="prygrpFrm_nombre" id="prygrpFrm_nombre">
                                     </div>
@@ -28,14 +29,26 @@
                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                                                             <button type="button" class="btn btn-dark" onclick="Cerrar('listagruposDiv');">Cerrar</button>
                                     </div>
+                                    </div>
+                                    
                                 </form> 
                             </div>
                             </div>
                             
                         </div>
-                        <div id="list_grpsPry" class="row py-2">
-
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                Listado de Grupos
+                                <div id="add_grpsPryDiv" class="row py-2">
+                            <button type="button" onclick="showDiv_AddGrupos();" >Agregar grupo</button>
                         </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="list_grpsPry" class="row py-2">
+                                </div>
+                            </div>                            
+                        </div>                        
                     </div>
                 <!-- adicionar proyecto -->
                     <div class="row py-2">
@@ -99,7 +112,7 @@
 
                     </div>
                     <div id="posiblesExpertos" class="row" style="display: none;">
-                        <div class="col col-4">                             
+                    <div class="col col-4">                             
                                 <form id="llenarPosiblesExprt" method="post">
                                     <input type="hidden" name="tipo_acc" id="tipo_acc">
                                     <input type="hidden" name="id_pry" id="id_pry">
@@ -107,10 +120,11 @@
                                     <div class="card shadow mb-4">
                                     <div class="card-header py-3">                                    
                                         <div class="row">
-                                            <div class="col col-8">
+                                            <div class="col col-5">
                                                 <h6 class="text-primary fw-bold m-0"id="posiblesExpertos_ltr"> </h6>
                                             </div>
-                                            <div class="col col-3"><button class="btn btn-warning" type="submit">Adicionar </button>
+                                            <div class="col col-3"><button class="btn btn-danger" type="button" onclick="Cerrar('posiblesExpertos');">Salir </button>
+                                        </div> <div class="col col-3"><button class="btn btn-warning" type="submit">Adicionar </button>
                                         </div>
                                         </div>
                                     </div>
@@ -120,11 +134,10 @@
                                     </div>    
                                 </form>
                                 
-                            </div>
-                        </div>
-                        
+                            </div>    
                     </div>
-                    <!-- listado de proyectos -->
+                    </div>
+                        <!-- listado de proyectos -->
                     <div id="listde" class="row py-2" style="display: none;">
                             <div class="d-flex flex-column" id="content-wrapper">
                                 <div id="content">
