@@ -163,7 +163,7 @@ const preEditarEmp= async (paramsId) => {
     empForm_onPage['empForm_cell'].value=emp_data.telefono_empresa;  
     empForm_onPage['empForm_email'].value=emp_data.email_empresa;
      
-    empForm_onPage['submit'].value='Actualizar';    
+    empForm_onPage['submitBtn'].value='Actualizar';    
     // set foco
     empForm_onPage['empForm_nombre'].focus();
 }

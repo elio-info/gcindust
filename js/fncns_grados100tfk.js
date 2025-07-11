@@ -150,7 +150,7 @@ const preEliminarGC= async (id_gradocientifico) => {
  */
 const preEditarGC= async (paramsId) => {
     //buscar 
-    let gc_data = (await getDataFromTable_GradosCientificos('buscar',paramsId)).data[0];
+    let gc_data = (await getDataFromTable_GradosCientificos(0,'buscar',paramsId)).data[0];
     AddInfo();
     // cambio de tipo op
     gcForm_onPage['tipo_operacion'].value='update';

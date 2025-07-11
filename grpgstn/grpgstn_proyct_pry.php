@@ -181,5 +181,5 @@
     fillTable_GrpsPry('list_grpsPry',<?=$_POST['id_pry']?>) //llenar datos  deList               
     </script>
 </body>
-
+<?php print_r($_POST)?>
 </html>

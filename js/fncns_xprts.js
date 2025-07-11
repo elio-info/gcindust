@@ -8,7 +8,7 @@ function Prepare_Quest(idp,nombre_proyecto,idg,nombre_grupo) {
     let mm=document.getElementById('valores');
     mm.innerHTML='';
     for (let index = 1; index <= 10; index++) {
-        let element = `<input id="customRadioInline${index}" class="custom-control-input" type="radio" name="customRadioInline" />
+        let element = `<input id="customRadioInline${index}" class="custom-control-input" type="radio" name="customRadioInline" value="${index}" />
                                     <label class="custom-control-label" for="customRadioInline1">
                                         ${index}</label> &nbsp;&nbsp;&nbsp;&nbsp;`; 
         mm.innerHTML+=element;

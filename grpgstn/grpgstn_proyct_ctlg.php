@@ -121,7 +121,7 @@
   <script>
     setMenu('invst',1,<?=$_SESSION['persona']['cargo'];?>,'<?=$_SESSION['persona']['nombre'];?>');
     fillSelec_Empresa('pryForm_emp');
-    fillTable_Proyecto('tableCardHead',<?=$_SESSION['persona']['id'];?>) //llenar datos  deList               
+    fillTable_Proyecto('tableCardHead','<?=$_SESSION['persona']['id'];?>') //llenar datos  deList               
     </script>
 </body>
 

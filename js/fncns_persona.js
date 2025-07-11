@@ -44,8 +44,8 @@ const fillTable_Persona = async (paramsTableTrName,cargo='*') =>{
                 data:'id_persona',
                 render:function (data) {
                     var botones=`
-         <button class="btn btn-dark" onclick="preEditarPers(${data})">Editar</button>
-         <button class="btn btn-danger"  onclick="preEliminarPers(${data})">Eliminar</button>`              
+         <button class="btn btn-dark" onclick="preEditarPers('${data}')">Editar</button>
+         <button class="btn btn-danger"  onclick="preEliminarPers('${data}')">Eliminar</button>`              
           return botones;
                 }
         }
@@ -161,16 +161,14 @@ const preEditarPers= async (paramsId) => {
     persForm_onPage['tipo_operacion'].value='update';
     persForm_onPage['persForm_id'].value=paramsId;    
     persForm_onPage['persForm_nombre'].value=pers_data.nombre_persona;  
-    persForm_onPage['persForm_resp'].value=pers_data.responsable_persona; 
+    persForm_onPage['persForm_apll'].value=pers_data.apellido_persona; 
 
-    fillSelec_Empresa('persForm_emp',pers_data.id_empresa)
+    fillSelec_Departamento('persForm_dpto',pers_data.departamento_persona)
 
-    persForm_onPage['persForm_fchsolc'].value=pers_data.dia_solicitud_persona; 
-    persForm_onPage['persForm_dinero'].value=pers_data.presupuesto_persona;  
-    persForm_onPage['persForm_tiempo'].value=pers_data.tiempo_estimado_persona;
-    // persForm_onPage['persForm_tiempo'].value=pers_data.tiempo_estimado_persona;
+    persForm_onPage['persForm_uss'].value=pers_data.usuario; 
+    persForm_onPage['persForm_clv'].value=pers_data.contrasena;  
       
-    persForm_onPage['submit'].value='Actualizar';    
+    persForm_onPage['submitBtn'].value='Actualizar';    
     // set foco
     persForm_onPage['persForm_nombre'].focus();
 }

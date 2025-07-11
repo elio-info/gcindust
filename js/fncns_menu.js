@@ -122,7 +122,7 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
                 <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
                         <div class="container-fluid">
                             
-                            <h2>          
+                            <h3>          
                               `
                 // Titulo a poner
                            // +
@@ -131,8 +131,8 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
                         menutitulo +=   poner.lnk[paramTitle-1].titulo                            
                         
                 // Fin Titulo a poner
-                         menutitulo     +=    `</h2>
-                            </div>        
+                         menutitulo     +=    `</h3>
+                                  
                         <ul class="navbar-nav flex-nowrap ms-auto">           
                         <li class="nav-item mx-2">
                                 `;
@@ -176,7 +176,7 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
                menutitulo                 +=tt+ 
                 // Fecha a poner
                             ` <a class=" nav-link" aria-expanded="false">                       
-                                    <h3  id="fechaTitulo" ></h3>
+                                    <h4  id="fechaTitulo" ></h4>
                                 </a>  
                                 `+
                 // Fin Fecha a poner
@@ -201,6 +201,7 @@ function setTopTitulo(paramCharge,paramTitle,nombreUsuario='') {
                                 </div>
                             </li>
                         </ul>
+                        </div>  
                     </div>
                 </nav>`
 					

@@ -18,7 +18,7 @@
         case 'buscarPI'://proy de Inv
             # code...
             $pryId = $_POST['pryForm_id'];
-            $qry = "SELECT * from vw_pry where responsable_proyecto=$pryId";           
+            $qry = "SELECT * from vw_pry where responsable_proyecto='$pryId'";           
             // print_r ($qry);
              $rs=$consultaso->findAll_By($qry);
             //  print_r ($rs);
@@ -32,7 +32,7 @@
             $pryF = $_POST['pryForm_fchsolc']; 
             $pryD = $_POST['pryForm_dinero'];  
             $pryT = $_POST['pryForm_tiempo'];          
-             $qry="insert into proyecto (nombre_proyecto,nombre_responsable_proyecto,dia_solicitud_proyecto,presupuesto_proyecto,tiempo_estimado_proyecto,id_empresa,estado_proyecto)values('$pryN','$pryR','$pryF',$pryD,$pryT,$pryE,1)";
+             $qry="insert into proyecto (nombre_proyecto,responsable_proyecto,dia_solicitud_proyecto,presupuesto_proyecto,tiempo_estimado_proyecto,id_empresa,estado_proyecto)values('$pryN','$pryR','$pryF',$pryD,$pryT,$pryE,1)";
             //  print_r ($qry);
              $rs=$consultaso->addP($qry);
             //  print_r ($rs);
@@ -123,7 +123,9 @@
         
         case 'lstr_gp':
             # code...listar todos
-            echo json_encode(  $consultaso->getAll_OrderBy('vw_grppry','id_proyecto')      );
+            $gpry = $_POST['pryForm_id']; 
+             $qry="SELECT * from vw_grppry  WHERE `id_proyecto`=$gpry";
+            echo json_encode(  $consultaso->findAll_By($qry)      );
         break;
     }
     // echo json_encode($consultaso);

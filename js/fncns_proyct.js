@@ -27,7 +27,7 @@ const fillTable_Proyecto = async (paramsTableTrName,responsable_proyecto) =>{
     console.log(datapry); 
     
     datapry.map(val =>{
-        val['hacer']={est:val.id_estado_proyecto,id:val.id_proyecto,prs:val.responsable_proyecto};
+        val['hacer']={est:val.id_estado_proyecto,id:val.id_proyecto,prs:val.responsable_proyecto,nm:val.nombre_proyecto};
     })
    
    if ($('#'+paramsTableTrName+'_wrapper')[0]) {
@@ -50,12 +50,12 @@ const fillTable_Proyecto = async (paramsTableTrName,responsable_proyecto) =>{
                     switch (parseInt(data.est)) {
                         case 1:
                             botones=`
-                                <button class="btn btn-success" onclick="preAprobarPry(${data.id},${data.prs})">Aprobar</button>
-                                <button class="btn btn-danger"  onclick="preCancelarPry(${data.id},${data.prs})">Cancelar</button>`  
+                                <button class="btn btn-success" onclick="preAprobarPry(${data.id},'${data.prs}')">Aprobar</button>
+                                <button class="btn btn-danger"  onclick="preCancelarPry(${data.id},'${data.prs}')">Cancelar</button>`  
                             break;
                         case 3:
                             botones=`
-                                <button class="btn btn-warning" onclick="preControlarPry(${data.id},'${data.prs}')">Controlar</button>`  
+                                <button class="btn btn-warning" onclick="preControlarPry(${data.id},'${data.nm}')">Controlar</button>`  
                             break;
                         default:
 

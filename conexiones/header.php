@@ -1,5 +1,5 @@
 <?php if (!isset($_SESSION)) session_start();
-print_r($_SESSION);
+// print_r($_SESSION);
 // echo ('dif tiempo ' . (time() - $_SESSION['persona']['interaccion_inicio']));
 if (
     !isset($_SESSION["persona"]) || //eres nadie

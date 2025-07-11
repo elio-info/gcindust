@@ -20,7 +20,7 @@
                                                     <div class="name-details">
                                                         <div class="field input">
                                                             <label>Carnet de Identidad de la Persona</label>
-                                                            <input type="text" name="persForm_id" placeholder="Nombre" required>
+                                                            <input type="text" name="persForm_id" placeholder="Poner CI" maxlength="11" required>
                                                         </div>          
                                                     </div> 
                                                     <div class="resp-details">
@@ -112,7 +112,7 @@
   <script src="../js/fncns_dptoentidad.js"></script>
   <script src="../js/fncns_persona.js"></script>
   <script>
-        setMenu('super',4);
+        setMenu('super',4,<?=$_SESSION['persona']['cargo'];?>,'<?=$_SESSION['persona']['nombre'];?>');
         fillSelec_Departamento('persForm_dpto');
         fillTable_Persona('tableCardHead','= 2') //llenar datos  deList               
     </script>
